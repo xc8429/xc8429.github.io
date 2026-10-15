@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT 專案成果簡報 - 科技感互動展示</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: #030712;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+    /* Cyberpunk Glows & Borders */
+    .cyber-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.08);
+      backdrop-filter: blur(12px);
+    }
+    .cyber-card:hover {
+      border-color: rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+    }
+    /* Scanlines overlay effect */
+    .scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.3)
+      );
+      background-size: 100% 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative scanlines">
+
+  <!-- Top Header Navigation -->
+  <header class="w-full border-b border-sky-500/30 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-3 h-3 bg-sky-400 rounded-full animate-ping"></div>
+      <h1 class="font-orbitron text-lg md:text-xl font-bold tracking-wider text-sky-400">
+        IT 專案成果展示 <span class="text-xs font-normal text-slate-400 ml-2">// Interview Presentation</span>
+      </h1>
+    </div>
+    <div class="flex items-center space-x-3">
+    <a href="https://xc8429.github.io/index.html"
+     class="bg-slate-700/50 hover:bg-sky-600/50 text-sky-300 border border-sky-500/50 px-3 py-1 rounded text-sm transition flex items-center space-x-2">
+    <i class="fa-solid fa-house"></i>
+    <span>回到首頁</span>
+  </a>
+    <div class="flex items-center space-x-4">
+      <span id="slide-indicator" class="font-orbitron text-sm text-sky-300 bg-sky-950/60 px-3 py-1 rounded border border-sky-500/40">Slide 1 / 4</span>
+      <button onclick="toggleFullscreen()" class="bg-sky-600/30 hover:bg-sky-600/50 text-sky-300 border border-sky-500/50 px-3 py-1 rounded text-sm transition flex items-center space-x-1">
+        <i class="fa-solid fa-expand"></i> <span>全螢幕簡報</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Presentation Viewport -->
+  <main class="flex-grow flex items-center justify-center p-4 md:p-8">
+    <div id="slide-wrapper" class="w-full max-w-6xl aspect-[16/9] bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 border border-sky-500/40 rounded-2xl p-6 md:p-12 relative flex flex-col justify-between shadow-2xl overflow-hidden">
+      
+      <!-- Ambient Background Elements -->
+      <div class="absolute -top-32 -right-32 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Slide Content Container -->
+      <div id="slide-content" class="flex-grow flex flex-col justify-between z-10">
+        <!-- Content will be injected dynamically via JS -->
+      </div>
+
+      <!-- Slide Navigation Footer controls -->
+      <div class="flex items-center justify-between border-t border-sky-500/20 pt-6 mt-4 z-10">
+        <button onclick="prevSlide()" id="prev-btn" class="font-orbitron px-5 py-2 rounded-lg bg-slate-800/80 hover:bg-sky-600/30 border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition flex items-center space-x-2 disabled:opacity-30 disabled:cursor-not-allowed">
+          <i class="fa-solid fa-arrow-left"></i> <span>PREV</span>
+        </button>
+        <div class="flex space-x-2" id="pagination-dots">
+          <!-- Dots generated dynamically -->
+        </div>
+        <button onclick="nextSlide()" id="next-btn" class="font-orbitron px-5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 border border-sky-400 text-white transition flex items-center space-x-2 shadow-lg shadow-sky-500/20">
+          <span>NEXT</span> <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </main>
+  
+  <!-- Footer Tip -->
+  <footer class="py-4 text-center text-xs text-slate-500 font-orbitron">
+    💡 提示：面試時可點擊上方「全螢幕簡報」或直接使用鍵盤左右方向鍵（← / →）切換投影片。
+  </footer>
+
+  <!-- JavaScript Slide Logic -->
+  <script>
+    const slides = [
+      {
+        badge: "Tool Analysis 01 // Python",
+        title: "Python 自動化壓縮與加密備份",
+        grid: [
+          {
+            icon: "fa-bullseye",
+            title: "目的 (Objective)",
+            label: "PURPOSE",
+            desc: "實現自動化檔案打包與加密，確保未來重新安裝新機時可快速轉移，完整保障校務資料安全。"
+          },
+          {
+            icon: "fa-gears",
+            title: "負責工作 (Tasks)",
+            label: "RESPONSIBILITY",
+            desc: "編寫 Python 程式碼呼叫 7-Zip 執行緒進行資料夾壓縮，並啟用標頭加密參數確保防護。"
+          },
+          {
+            icon: "fa-code",
+            title: "使用的工具 & 技術 (Tech Stack)",
+            label: "TECHNOLOGY",
+            desc: "Python (<code class='text-sky-300'>subprocess</code>), 7-Zip CLI (<code class='text-sky-300'>7z.exe</code>), 標頭加密參數 (<code class='text-sky-300'>-mhe</code>)"
+          },
+          {
+            icon: "fa-shield-halved",
+            title: "遇到的問題與解決方式",
+            label: "SOLUTION",
+            desc: "<b>問題:</b> 手動備份繁瑣且未加密容易外洩。<br><b>解決:</b> 編寫 Python 腳本串接 7-Zip 達成一鍵密碼加密備份，大幅加速新機移轉效率。"
+          }
+        ]
+      },
+      {
+        badge: "Tool Analysis 02 // PowerShell",
+        title: "Windows 智慧延遲關機系統",
+        grid: [
+          {
+            icon: "fa-bullseye",
+            title: "目的 (Objective)",
+            label: "PURPOSE",
+            desc: "解決下班前忘記打卡或系統強制關機導致未存檔的問題，提供溫馨提醒與緩衝時間。"
+          },
+          {
+            icon: "fa-gears",
+            title: "負責工作 (Tasks)",
+            label: "RESPONSIBILITY",
+            desc: "建立 PowerShell 排程任務，在指定時間跳出彈跳視窗提醒並自動開啟打卡系統網頁。"
+          },
+          {
+            icon: "fa-code",
+            title: "使用的工具 & 技術 (Tech Stack)",
+            label: "TECHNOLOGY",
+            desc: "PowerShell ISE, Windows Task Scheduler, PresentationFramework (WPF MessageBox)"
+          },
+          {
+            icon: "fa-shield-halved",
+            title: "遇到的問題與解決方式",
+            label: "SOLUTION",
+            desc: "<b>問題:</b> 電腦直接關機導致未存檔或忘記簽到。<br><b>解決:</b> 設計倒數緩衝與自動跳轉打卡頁面機制，完美兼顧自動化與使用者體驗。"
+          }
+        ]
+      },
+      {
+        badge: "Tool Analysis 03 // PHP & HTML",
+        title: "校園植物與教學資源網站",
+        grid: [
+          {
+            icon: "fa-bullseye",
+            title: "目的 (Objective)",
+            label: "PURPOSE",
+            desc: "建構校內專屬植物導覽與教學資源平台，供全校師生線上互動與查閱。"
+          },
+          {
+            icon: "fa-gears",
+            title: "負責工作 (Tasks)",
+            label: "RESPONSIBILITY",
+            desc: "編寫 HTML/PHP 網頁架構，製作植物分類圖鑑、影音播放與教材下載上傳專區。"
+          },
+          {
+            icon: "fa-code",
+            title: "使用的工具 & 技術 (Tech Stack)",
+            label: "TECHNOLOGY",
+            desc: "VS Code, XAMPP (Apache/PHP 8.2), HTML/CSS, JSON File Storage"
+          },
+          {
+            icon: "fa-shield-halved",
+            title: "遇到的問題與解決方式",
+            label: "SOLUTION",
+            desc: "<b>問題:</b> 外部主機成本高且受限校內網路環境。<br><b>解決:</b> 利用 XAMPP 在單機或校內內網架設，零網域成本實現高效能圖文資料庫。"
+          }
+        ]
+      },
+      {
+        badge: "Tool Analysis 04 // PHP Discussion Board",
+        title: "互動留言討論區系統",
+        grid: [
+          {
+            icon: "fa-bullseye",
+            title: "目的 (Objective)",
+            label: "PURPOSE",
+            desc: "提供師生即時留言與意見交流管道，增進校園數位溝通效率。"
+          },
+          {
+            icon: "fa-gears",
+            title: "負責工作 (Tasks)",
+            label: "RESPONSIBILITY",
+            desc: "開發留言表單處理、JSON 資料持久化儲存以及動態倒序渲染迴圈功能。"
+          },
+          {
+            icon: "fa-code",
+            title: "使用的工具 & 技術 (Tech Stack)",
+            label: "TECHNOLOGY",
+            desc: "PHP (<code class='text-sky-300'>$_POST</code>, <code class='text-sky-300'>file_put_contents</code>), JSON 資料交換格式"
+          },
+          {
+            icon: "fa-shield-halved",
+            title: "遇到的問題與解決方式",
+            label: "SOLUTION",
+            desc: "<b>問題:</b> 輕量化專案若配置完整 SQL 資料庫過於龐大。<br><b>解決:</b> 採用 PHP 結合 JSON 檔案儲存留言，達到免資料庫即時互動的高效輕量解法。"
+          }
+        ]
+      }
+    ];
+
+    let currentSlide = 0;
+
+    function renderSlide() {
+      const slide = slides[currentSlide];
+      document.getElementById('slide-indicator.text')?.remove();
+      document.getElementById('slide-indicator').innerText = `Slide ${currentSlide + 1} / ${slides.length}`;
+
+      const contentContainer = document.getElementById('slide-content');
+      
+      let gridHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full flex-grow items-center">`;
+      slide.grid.forEach((card, idx) => {
+        gridHTML += `
+          <div class="cyber-card rounded-xl p-5 flex flex-col justify-between h-[360px] md:h-[400px] transition duration-300 transform hover:-translate-y-1">
+            <div>
+              <div class="text-sky-400 text-2xl mb-3"><i class="fa-solid ${card.icon}"></i></div>
+              <h3 class="font-orbitron text-base font-bold text-slate-100 mb-2 leading-snug">${card.title}</h3>
+            </div>
+            <div class="mt-auto">
+              <div class="font-orbitron text-[10px] text-sky-400 uppercase tracking-widest font-bold mb-1">${card.label}</div>
+              <div class="text-slate-300 text-xs md:text-sm leading-relaxed">${card.desc}</div>
+            </div>
+          </div>
+        `;
+      });
+      gridHTML += `</div>`;
+
+      contentContainer.innerHTML = `
+        <div>
+          <div class="inline-block font-orbitron text-xs font-bold text-sky-400 bg-sky-500/10 px-3 py-1 rounded border border-sky-500/30 uppercase tracking-wider mb-2">${slide.badge}</div>
+          <h2 class="font-orbitron text-xl md:text-3xl font-extrabold text-white tracking-wide mb-4">${slide.title}</h2>
+        </div>
+        ${gridHTML}
+      `;
+
+      // Render dots
+      const dotsContainer = document.getElementById('pagination-dots');
+      let dotsHTML = '';
+      slides.forEach((_, i) => {
+        const activeClass = i === currentSlide ? 'w-8 bg-sky-400' : 'w-2 bg-slate-700 hover:bg-slate-500';
+        dotsHTML += `<button onclick="goToSlide(${i})" class="h-2 rounded-full transition-all duration-300 ${activeClass}"></button>`;
+      });
+      dotsContainer.innerHTML = dotsHTML;
+
+      // Button states
+      document.getElementById('prev-btn').disabled = currentSlide === 0;
+      document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
+      document.getElementById('next-btn').style.opacity = currentSlide === slides.length - 1 ? '0.3' : '1';
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        renderSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        renderSlide();
+      }
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      renderSlide();
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          alert(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+
+    // Initialize on load
+    window.onload = () => {
+      renderSlide();
+    };
+  </script>
+  
+</body>
+</html>
