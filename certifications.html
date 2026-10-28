@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Michael 的資訊站｜專業證照、技術認證與培訓證書">
-  <title>證照與培訓｜Michael 的資訊站</title>
+  <meta name="description" content="Michael 的資訊站｜培訓證書與學習紀錄">
+  <title>培訓證書｜Michael 的資訊站</title>
 
   <style>
     :root {
@@ -63,7 +63,7 @@
 
     .logo {
       font-size: 19px;
-      font-weight: 700;
+      font-weight: bold;
       color: var(--accent);
       white-space: nowrap;
     }
@@ -88,7 +88,7 @@
 
     /* 頁面標題 */
     .hero {
-      padding: 72px 0 48px;
+      padding: 70px 0 45px;
       background:
         radial-gradient(
           ellipse at top right,
@@ -101,9 +101,8 @@
     .eyebrow {
       color: var(--accent);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: bold;
       letter-spacing: 3px;
-      text-transform: uppercase;
     }
 
     h1 {
@@ -115,28 +114,29 @@
     .hero p {
       max-width: 650px;
       color: var(--muted);
-      margin: 12px 0 0;
+      margin-top: 12px;
     }
 
-    /* 統計區 */
+    /* 培訓統計 */
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
-      margin-top: 32px;
+      margin-top: 30px;
+      max-width: 650px;
     }
 
     .stat-card {
       padding: 18px;
       border: 1px solid var(--border);
-      background: rgba(27, 34, 45, 0.8);
+      background: rgba(27, 34, 45, 0.85);
       border-radius: 12px;
     }
 
     .stat-number {
       color: var(--accent);
-      font-size: 27px;
-      font-weight: 700;
+      font-size: 28px;
+      font-weight: bold;
     }
 
     .stat-label {
@@ -144,17 +144,14 @@
       font-size: 13px;
     }
 
-    /* 內容區 */
+    /* 主要內容 */
     main {
       padding: 42px 0 70px;
+      min-height: 350px;
     }
 
     .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .section-heading h2 {
@@ -163,42 +160,31 @@
     }
 
     .section-heading p {
-      margin: 4px 0 0;
       color: var(--muted);
       font-size: 14px;
+      margin: 5px 0 0;
     }
 
     .toolbar {
       display: flex;
-      flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .search-input,
-    .filter-select {
-      min-height: 44px;
-      padding: 10px 14px;
-      color: var(--text);
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
+      margin-bottom: 25px;
     }
 
     .search-input {
       flex: 1;
-      min-width: 200px;
-    }
-
-    .search-input:focus,
-    .filter-select:focus {
-      border-color: var(--accent);
-    }
-
-    .filter-select option {
+      min-width: 0;
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       background: var(--panel);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
     }
 
     .certificate-grid {
@@ -212,9 +198,7 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
-      transition:
-        transform 0.2s,
-        border-color 0.2s;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
     .certificate-card:hover {
@@ -230,11 +214,9 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      background:
-        linear-gradient(135deg, #252f3e, #171e28);
+      background: linear-gradient(135deg, #252f3e, #171e28);
       border-bottom: 1px solid var(--border);
       cursor: zoom-in;
-      position: relative;
     }
 
     .certificate-image img {
@@ -244,20 +226,20 @@
       padding: 10px;
     }
 
-    .image-placeholder {
-      padding: 20px;
+    .placeholder {
       text-align: center;
+      padding: 20px;
       color: var(--muted);
     }
 
-    .image-placeholder .icon {
+    .placeholder .icon {
       display: block;
-      font-size: 38px;
-      margin-bottom: 8px;
       color: var(--accent);
+      font-size: 40px;
+      margin-bottom: 8px;
     }
 
-    .image-placeholder small {
+    .placeholder small {
       display: block;
       margin-top: 5px;
       font-size: 12px;
@@ -269,7 +251,7 @@
 
     .tag {
       display: inline-block;
-      padding: 3px 9px;
+      padding: 3px 10px;
       margin-bottom: 10px;
       border: 1px solid #31576b;
       border-radius: 20px;
@@ -284,40 +266,26 @@
     }
 
     .card-content p {
-      margin: 5px 0;
       color: var(--muted);
       font-size: 13px;
+      margin: 5px 0;
       overflow-wrap: anywhere;
     }
 
-    .card-description {
+    .description {
       min-height: 48px;
     }
 
-    .card-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 17px;
-    }
-
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 13px;
-      border: 1px solid var(--border);
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--accent);
       border-radius: 7px;
-      background: transparent;
-      color: var(--text);
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      color: #09151c;
       background: var(--accent);
-      border-color: var(--accent);
-      font-weight: 700;
+      color: #09151c;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -326,14 +294,14 @@
 
     .empty-state {
       display: none;
-      padding: 45px 15px;
+      padding: 45px 20px;
       text-align: center;
       color: var(--muted);
       border: 1px dashed var(--border);
       border-radius: 12px;
     }
 
-    /* 圖片放大視窗 */
+    /* 證書放大視窗 */
     .modal {
       display: none;
       position: fixed;
@@ -342,7 +310,7 @@
       padding: 24px;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.88);
+      background: rgba(0, 0, 0, 0.9);
     }
 
     .modal.open {
@@ -370,17 +338,17 @@
 
     .modal-close {
       position: absolute;
-      top: 14px;
+      top: 12px;
       right: 22px;
-      border: 0;
-      background: transparent;
       color: white;
       font-size: 36px;
+      background: none;
+      border: none;
       cursor: pointer;
     }
 
     footer {
-      padding: 26px 0;
+      padding: 25px 0;
       text-align: center;
       color: var(--muted);
       font-size: 13px;
@@ -404,10 +372,7 @@
     }
 
     @media (max-width: 540px) {
-      .certificate-grid {
-        grid-template-columns: 1fr;
-      }
-
+      .certificate-grid,
       .stats {
         grid-template-columns: 1fr;
       }
@@ -415,17 +380,12 @@
       .hero {
         padding-top: 45px;
       }
-
-      .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-      }
     }
   </style>
 </head>
 
 <body>
-  <!-- 導覽列：沿用原網站連結 -->
+  <!-- 網站導覽列 -->
   <header>
     <div class="container navbar">
       <a class="logo" href="index.html">Michael 的資訊站</a>
@@ -444,21 +404,16 @@
   <!-- 頁面介紹 -->
   <section class="hero">
     <div class="container">
-      <div class="eyebrow">CERTIFICATIONS & TRAINING</div>
+      <div class="eyebrow">TRAINING & LEARNING</div>
 
-      <h1>證照與培訓</h1>
+      <h1>培訓證書</h1>
 
       <p>
-        持續累積資訊技術知識與實務能力，
-        記錄專業證照、技術認證及教育訓練的學習成果。
+        記錄專業培訓、教育訓練與持續學習成果，
+        展現對資訊技術的投入與自我精進。
       </p>
 
       <div class="stats">
-        <div class="stat-card">
-          <div class="stat-number" id="professionalCount">0</div>
-          <div class="stat-label">專業證照</div>
-        </div>
-
         <div class="stat-card">
           <div class="stat-number" id="trainingCount">0</div>
           <div class="stat-label">培訓證書</div>
@@ -466,7 +421,7 @@
 
         <div class="stat-card">
           <div class="stat-number" id="totalCount">0</div>
-          <div class="stat-label">證書總數</div>
+          <div class="stat-label">學習紀錄</div>
         </div>
       </div>
     </div>
@@ -474,10 +429,8 @@
 
   <main class="container">
     <div class="section-heading">
-      <div>
-        <h2>我的學習紀錄</h2>
-        <p>點擊證書圖片即可放大預覽。</p>
-      </div>
+      <h2>我的培訓紀錄</h2>
+      <p>點擊證書圖片可放大預覽。</p>
     </div>
 
     <div class="toolbar">
@@ -485,33 +438,23 @@
         type="search"
         id="searchInput"
         class="search-input"
-        placeholder="搜尋證書名稱或發證單位..."
-        aria-label="搜尋證書"
+        placeholder="搜尋課程名稱或培訓單位..."
+        aria-label="搜尋培訓紀錄"
       >
-
-      <select
-        id="categoryFilter"
-        class="filter-select"
-        aria-label="證書分類"
-      >
-        <option value="all">全部分類</option>
-        <option value="professional">專業證照</option>
-        <option value="training">培訓證書</option>
-      </select>
     </div>
 
     <section
       class="certificate-grid"
       id="certificateGrid"
-      aria-label="證書列表"
+      aria-label="培訓證書列表"
     ></section>
 
     <div class="empty-state" id="emptyState">
-      找不到符合條件的證書。
+      目前尚未新增培訓證書。
     </div>
   </main>
 
-  <!-- 證書圖片放大視窗 -->
+  <!-- 圖片放大視窗 -->
   <div
     class="modal"
     id="imageModal"
@@ -528,7 +471,7 @@
     >&times;</button>
 
     <div class="modal-content">
-      <img id="modalImage" src="" alt="證書放大圖片">
+      <img id="modalImage" src="" alt="培訓證書">
       <div class="modal-caption" id="modalCaption"></div>
     </div>
   </div>
@@ -542,47 +485,30 @@
 
   <script>
     /*
-      證書資料設定區
-      category:
-        professional = 專業證照
-        training     = 培訓證書
+      培訓證書資料設定區
 
-      image:
-        請填入實際證書圖片路徑。
-        例如：images/certificates/example.jpg
+      請在取得實際證書後新增資料。
+      尚未填入真實資料前，網頁會顯示空白提示。
 
-      以下兩筆皆為示範資料，並非個人實際取得的資格。
+      image 範例：
+      images/certificates/ai-training.jpg
     */
 
     const certificates = [
-      {
-        id: 1,
-        name: "專業證照範例（請替換）",
-        category: "professional",
-        issuer: "請填寫發證單位",
-        date: "請填寫取得日期",
-        description: "請填寫證照名稱及相關專業能力。",
-        image: ""
-      },
-      {
-        id: 2,
-        name: "培訓課程證書範例（請替換）",
-        category: "training",
-        issuer: "請填寫培訓機構",
-        date: "請填寫結訓日期",
-        description: "請填寫課程名稱與學習內容。",
-        image: ""
-      }
+      // 請在這裡新增你的實際培訓證書，例如：
+      //
+      // {
+      //   id: 1,
+      //   name: "實際課程名稱",
+      //   issuer: "實際培訓單位",
+      //   date: "2026-10",
+      //   description: "課程內容與學習成果",
+      //   image: "images/certificates/example.jpg"
+      // }
     ];
-
-    const categoryNames = {
-      professional: "專業證照",
-      training: "培訓證書"
-    };
 
     const grid = document.getElementById("certificateGrid");
     const searchInput = document.getElementById("searchInput");
-    const categoryFilter = document.getElementById("categoryFilter");
     const emptyState = document.getElementById("emptyState");
 
     const modal = document.getElementById("imageModal");
@@ -593,26 +519,6 @@
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
-    function updateStats() {
-      const professional = certificates.filter(
-        item => item.category === "professional"
-      ).length;
-
-      const training = certificates.filter(
-        item => item.category === "training"
-      ).length;
-
-      document.getElementById("professionalCount").textContent =
-        professional;
-
-      document.getElementById("trainingCount").textContent =
-        training;
-
-      document.getElementById("totalCount").textContent =
-        certificates.length;
-    }
-
-    // 避免將證書文字直接當成 HTML 執行
     function escapeHTML(value) {
       return String(value ?? "").replace(/[&<>"']/g, char => ({
         "&": "&amp;",
@@ -623,32 +529,35 @@
       })[char]);
     }
 
+    function updateStats() {
+      const total = certificates.length;
+
+      document.getElementById("trainingCount").textContent = total;
+      document.getElementById("totalCount").textContent = total;
+    }
+
     function renderCertificates() {
       const keyword = searchInput.value.trim().toLowerCase();
-      const category = categoryFilter.value;
 
       const filtered = certificates.filter(item => {
-        const text = [
+        const content = [
           item.name,
           item.issuer,
-          item.description
+          item.description,
+          item.date
         ].join(" ").toLowerCase();
 
-        const matchesKeyword = text.includes(keyword);
-        const matchesCategory =
-          category === "all" || item.category === category;
-
-        return matchesKeyword && matchesCategory;
+        return content.includes(keyword);
       });
 
       grid.innerHTML = filtered.map(item => {
-        const hasImage = Boolean(item.image.trim());
+        const hasImage = Boolean(item.image && item.image.trim());
 
         const imageHTML = hasImage
           ? `
             <div
               class="certificate-image"
-              data-preview="${item.id}"
+              data-preview="${Number(item.id)}"
               role="button"
               tabindex="0"
               aria-label="放大查看${escapeHTML(item.name)}"
@@ -662,10 +571,9 @@
           `
           : `
             <div class="certificate-image">
-              <div class="image-placeholder">
+              <div class="placeholder">
                 <span class="icon">▤</span>
-                尚未上傳證書圖片
-                <small>請在資料設定區填入圖片路徑</small>
+                尚未提供證書圖片
               </div>
             </div>
           `;
@@ -675,50 +583,54 @@
             ${imageHTML}
 
             <div class="card-content">
-              <span class="tag">
-                ${escapeHTML(categoryNames[item.category])}
-              </span>
+              <span class="tag">培訓證書</span>
 
               <h3>${escapeHTML(item.name)}</h3>
 
-              <p>發證／培訓單位：${escapeHTML(item.issuer)}</p>
-              <p>取得／結訓日期：${escapeHTML(item.date)}</p>
+              <p>培訓單位：${escapeHTML(item.issuer)}</p>
+              <p>結訓日期：${escapeHTML(item.date)}</p>
 
-              <p class="card-description">
+              <p class="description">
                 ${escapeHTML(item.description)}
               </p>
 
-              <div class="card-actions">
-                ${
-                  hasImage
-                    ? `<button class="btn btn-primary"
-                         data-preview="${item.id}"
-                         type="button">查看證書</button>`
-                    : `<span class="btn">待補證書圖片</span>`
-                }
-              </div>
+              ${
+                hasImage
+                  ? `<button class="btn"
+                       type="button"
+                       data-preview="${Number(item.id)}">
+                       查看證書
+                     </button>`
+                  : ""
+              }
             </div>
           </article>
         `;
       }).join("");
 
-      emptyState.style.display = filtered.length ? "none" : "block";
+      emptyState.style.display =
+        filtered.length === 0 ? "block" : "none";
 
-      // 圖片載入失敗時顯示提示
+      emptyState.textContent = certificates.length === 0
+        ? "目前尚未新增培訓證書，請在程式碼中填入實際課程資料。"
+        : "找不到符合條件的培訓紀錄。";
+
       grid.querySelectorAll(".certificate-image img").forEach(img => {
         img.addEventListener("error", () => {
           const parent = img.parentElement;
+
+          parent.removeAttribute("data-preview");
+          parent.removeAttribute("role");
+          parent.removeAttribute("tabindex");
+          parent.style.cursor = "default";
+
           parent.innerHTML = `
-            <div class="image-placeholder">
+            <div class="placeholder">
               <span class="icon">!</span>
               圖片載入失敗
               <small>請確認圖片路徑與檔名</small>
             </div>
           `;
-          parent.removeAttribute("data-preview");
-          parent.removeAttribute("role");
-          parent.removeAttribute("tabindex");
-          parent.style.cursor = "default";
         }, { once: true });
       });
     }
@@ -728,7 +640,7 @@
         certificate => certificate.id === Number(id)
       );
 
-      if (!item || !item.image.trim()) return;
+      if (!item || !item.image) return;
 
       modalImage.src = item.image;
       modalImage.alt = item.name;
@@ -745,10 +657,12 @@
       modalImage.src = "";
     }
 
-    // 使用事件委派，讓所有證書卡片都能開啟預覽
     grid.addEventListener("click", event => {
       const target = event.target.closest("[data-preview]");
-      if (target) openPreview(target.dataset.preview);
+
+      if (target) {
+        openPreview(target.dataset.preview);
+      }
     });
 
     grid.addEventListener("keydown", event => {
@@ -764,17 +678,21 @@
     modalClose.addEventListener("click", closePreview);
 
     modal.addEventListener("click", event => {
-      if (event.target === modal) closePreview();
+      if (event.target === modal) {
+        closePreview();
+      }
     });
 
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && modal.classList.contains("open")) {
+      if (
+        event.key === "Escape" &&
+        modal.classList.contains("open")
+      ) {
         closePreview();
       }
     });
 
     searchInput.addEventListener("input", renderCertificates);
-    categoryFilter.addEventListener("change", renderCertificates);
 
     updateStats();
     renderCertificates();
