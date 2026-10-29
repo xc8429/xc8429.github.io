@@ -910,7 +910,25 @@ function createEmptyState(message) {
   return empty;
 }
 
-function openViewer(cert) {
+let rotationAngle = 0;
+
+document.getElementById("rotateLeft").addEventListener("click", () => {
+  rotationAngle -= 90;
+  document.getElementById("viewerImage").style.transform =
+    `rotate(${rotationAngle}deg)`;
+});
+
+document.getElementById("rotateRight").addEventListener("click", () => {
+  rotationAngle += 90;
+  document.getElementById("viewerImage").style.transform =
+    `rotate(${rotationAngle}deg)`;
+});
+
+document.getElementById("resetRotation").addEventListener("click", () => {
+  rotationAngle = 0;
+  document.getElementById("viewerImage").style.transform = "rotate(0deg)";
+});
+  function openViewer(cert) {
   const viewer = document.getElementById("viewer");
   const viewerImage = document.getElementById("viewerImage");
 
