@@ -3,29 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Michael 的資訊站｜AI 課程與資訊技術培訓證書">
-  <title>培訓證書｜Michael 的資訊站</title>
+  <meta name="theme-color" content="#101722">
+  <meta name="description" content="Michael 的資訊站：AI 與資訊專業證書展示。">
+  <title>專業證書｜Michael 的資訊站</title>
 
   <style>
     :root {
-      --bg: #11151c;
-      --panel: #1b222d;
-      --text: #e5eaf2;
-      --muted: #9aa8ba;
-      --accent: #67d8f5;
-      --border: #303c4c;
+      --bg: #101722;
+      --panel: #172231;
+      --panel-light: #1d2b3d;
+      --border: #304258;
+      --text: #e5edf7;
+      --muted: #93a4b9;
+      --accent: #56d8f5;
+      --accent-dark: #173b4b;
+      --danger: #ff8994;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(ellipse at top, #1a2b40 0%, transparent 55%),
+        var(--bg);
       color: var(--text);
-      font-family: "Microsoft JhengHei", Arial, sans-serif;
-      line-height: 1.8;
+      font-family:
+        "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
     }
 
     a {
@@ -33,393 +45,1089 @@
       text-decoration: none;
     }
 
+    button, input, select {
+      font: inherit;
+    }
+
+    button, a, input, select {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
     .container {
-      width: min(1100px, 92%);
-      margin: auto;
+      width: min(1080px, calc(100% - 36px));
+      margin: 0 auto;
     }
 
-    /* 導覽列 */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(17, 21, 28, .96);
+    /* 頁首 */
+    .site-header {
+      background: rgba(13, 20, 31, .94);
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
+      position: relative;
     }
 
-    .navbar {
-      min-height: 72px;
+    .header-inner {
+      padding: 25px 0 20px;
+    }
+
+    .brand {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+      gap: 12px;
     }
 
-    .logo {
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
       color: var(--accent);
-      font-size: 19px;
-      font-weight: bold;
-      white-space: nowrap;
+      border: 1px solid #3c728b;
+      background: #152b3a;
+      border-radius: 10px;
+      font-size: 23px;
+      flex-shrink: 0;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+    .brand-name {
+      margin: 0;
+      font-size: clamp(21px, 4vw, 27px);
+      letter-spacing: 1px;
     }
 
-    .nav-links a {
+    .brand-subtitle {
+      margin: 2px 0 0;
       color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .navigation {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .navigation a {
+      color: #b9c8d9;
       font-size: 14px;
+      padding: 7px 13px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      transition: .2s;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
+    .navigation a:hover,
+    .navigation a.active {
       color: var(--accent);
+      background: #172c3d;
+      border-color: #31516a;
     }
 
-    /* 標題 */
+    /* 主視覺 */
     .hero {
-      padding: 60px 0 42px;
-      background:
-        radial-gradient(
-          ellipse at top right,
-          rgba(53, 133, 169, .17),
-          transparent 55%
-        );
-      border-bottom: 1px solid var(--border);
+      padding: 42px 0 30px;
     }
 
     .eyebrow {
       color: var(--accent);
       font-size: 12px;
       letter-spacing: 3px;
+      margin-bottom: 8px;
     }
 
-    h1 {
-      margin: 8px 0;
-      font-size: clamp(30px, 5vw, 42px);
+    .hero h2 {
+      font-size: clamp(27px, 5vw, 38px);
+      line-height: 1.35;
+      margin: 0 0 12px;
     }
 
     .hero p {
-      margin: 8px 0 0;
       color: var(--muted);
+      max-width: 680px;
+      margin: 0;
+      font-size: 15px;
     }
 
-    main {
-      padding: 40px 0 70px;
+    .hero-line {
+      width: 70px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 22px;
+      border-radius: 4px;
     }
 
-    .category {
-      margin-bottom: 44px;
+    /* 統計資訊 */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
     }
 
-    .category-heading {
+    .stat-card {
+      padding: 17px;
+      background: rgba(23, 34, 49, .85);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .stat-value {
+      color: var(--accent);
+      font-size: 27px;
+      font-weight: 700;
+      margin-top: 5px;
+    }
+
+    /* 分類導覽 */
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab-button {
+      color: #c4d2e1;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 10px 18px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .tab-button:hover,
+    .tab-button.active {
+      color: var(--accent);
+      background: var(--accent-dark);
+      border-color: #3c849c;
+    }
+
+    /* 工具列 */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 180px;
+      width: 100%;
+      padding: 11px 13px;
+      color: var(--text);
+      background: #101a28;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .search-input::placeholder {
+      color: #71839a;
+    }
+
+    .primary-button {
+      color: #10202c;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .primary-button:hover {
+      background: #91eaff;
+    }
+
+    .secondary-button {
+      color: var(--text);
+      background: #26364a;
+      border: 1px solid #40566e;
+      padding: 9px 13px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .secondary-button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* 證書區塊 */
+    .certificate-section {
+      margin: 34px 0 45px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+    }
+
+    .section-title-group {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
     }
 
-    .category-icon {
+    .section-icon {
       width: 42px;
       height: 42px;
       display: grid;
       place-items: center;
-      border: 1px solid #31576b;
-      background: #1b2a37;
       color: var(--accent);
-      border-radius: 10px;
+      background: #182f40;
+      border: 1px solid #31566e;
+      border-radius: 9px;
       font-size: 21px;
     }
 
-    .category-heading h2 {
+    .section-heading h3 {
+      font-size: 21px;
       margin: 0;
-      font-size: 22px;
     }
 
-    .category-heading p {
-      margin: 2px 0 0;
+    .section-heading p {
+      font-size: 12px;
       color: var(--muted);
-      font-size: 13px;
+      margin: 1px 0 0;
     }
 
-    /* 小圖示列表 */
+    .count-label {
+      color: var(--accent);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* 縮圖網格 */
     .certificate-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(155px, 1fr)
+      );
+      gap: 17px;
     }
 
-    .certificate-item {
+    .certificate-card {
       min-width: 0;
-      padding: 10px;
-      background: var(--panel);
+      overflow: hidden;
+      background: linear-gradient(
+        160deg,
+        #1b293a,
+        #151f2e
+      );
       border: 1px solid var(--border);
-      border-radius: 10px;
-      transition: border-color .2s, transform .2s;
+      border-radius: 9px;
+      transition:
+        transform .2s,
+        border-color .2s,
+        box-shadow .2s;
     }
 
-    .certificate-item:hover {
-      border-color: var(--accent);
+    .certificate-card:hover {
       transform: translateY(-3px);
+      border-color: #4e9db5;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .22);
     }
 
-    .certificate-link {
+    .thumbnail-button {
       display: block;
-      cursor: pointer;
+      width: 100%;
+      padding: 10px;
+      border: 0;
+      background: #111a27;
+      cursor: zoom-in;
     }
 
     .thumbnail {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border-radius: 6px;
-      background: #252f3e;
-    }
-
-    .thumbnail img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .placeholder {
-      color: var(--accent);
-      text-align: center;
-      font-size: 34px;
-    }
-
-    .placeholder span {
       display: block;
-      color: var(--muted);
-      font-size: 11px;
+      width: 100%;
+      height: 155px;
+      object-fit: contain;
+      background: #e9eef3;
+      border-radius: 4px;
     }
 
-    .certificate-name {
-      margin-top: 9px;
-      color: var(--text);
-      font-size: 13px;
-      text-align: center;
+    .card-info {
+      padding: 11px 12px 13px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 10px;
+      letter-spacing: 1px;
+      padding: 2px 7px;
+      border: 1px solid #34576d;
+      border-radius: 4px;
+      margin-bottom: 7px;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
       overflow-wrap: anywhere;
     }
 
-    .empty {
-      grid-column: 1 / -1;
-      padding: 24px;
-      text-align: center;
-      color: var(--muted);
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      font-size: 14px;
+    .card-actions {
+      display: flex;
+      gap: 7px;
+      margin-top: 12px;
     }
 
-    footer {
-      padding: 24px 0;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
+    .card-actions button {
+      flex: 1;
+      font-size: 12px;
+      padding: 6px 5px;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 28px 15px;
       text-align: center;
+      background: rgba(23, 34, 49, .55);
+      border: 1px dashed #3b4e63;
+      border-radius: 9px;
+      color: var(--muted);
+    }
+
+    .empty-state strong {
+      display: block;
+      color: #c8d7e6;
+      margin-bottom: 5px;
+    }
+
+    /* 上傳操作區 */
+    .upload-panel {
+      display: none;
+      margin: 0 0 35px;
+      padding: 22px;
+      background: var(--panel);
+      border: 1px solid #3d627a;
+      border-radius: 10px;
+    }
+
+    .upload-panel.open {
+      display: block;
+    }
+
+    .upload-panel h3 {
+      margin: 0 0 7px;
+      font-size: 20px;
+    }
+
+    .upload-description {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .form-field {
+      min-width: 0;
+    }
+
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-field label {
+      display: block;
+      color: #c8d6e5;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      min-width: 0;
+      padding: 11px;
+      color: var(--text);
+      background: #101a28;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .form-field input[type="file"] {
       font-size: 13px;
     }
 
-    @media (max-width: 850px) {
-      .certificate-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
+    .form-field input[type="file"]::file-selector-button {
+      color: var(--text);
+      background: #293b50;
+      border: 0;
+      border-radius: 4px;
+      padding: 7px 9px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
 
-      .navbar {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 14px 0;
-      }
+    .upload-notice {
+      padding: 12px 14px;
+      color: #b9c8d8;
+      background: #111b29;
+      border-left: 3px solid var(--accent);
+      font-size: 12px;
+      line-height: 1.8;
+      margin: 18px 0;
+    }
 
-      .nav-links {
-        gap: 12px;
-      }
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .status-message {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--accent);
+      overflow-wrap: anywhere;
+    }
+
+    /* 放大檢視 */
+    .viewer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      padding: 65px 20px 25px;
+      background: rgba(5, 10, 17, .96);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .viewer.open {
+      display: flex;
+    }
+
+    .viewer-image {
+      display: block;
+      max-width: 100%;
+      max-height: 83vh;
+      object-fit: contain;
+      border-radius: 4px;
+      background: #e9eef3;
+    }
+
+    .viewer-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: white;
+      background: #26364a;
+      border: 1px solid #51667d;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    .viewer-caption {
+      position: absolute;
+      top: 19px;
+      left: 20px;
+      right: 120px;
+      color: #dce8f5;
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      color: #8092a8;
+      text-align: center;
+      padding: 25px 18px;
+      font-size: 12px;
+    }
+
+    [hidden] {
+      display: none !important;
     }
 
     @media (max-width: 600px) {
+      .container {
+        width: calc(100% - 26px);
+      }
+
+      .header-inner {
+        padding-top: 20px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .stats {
+        gap: 8px;
+      }
+
+      .stat-card {
+        padding: 11px;
+      }
+
+      .stat-value {
+        font-size: 22px;
+      }
+
       .certificate-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        gap: 11px;
+      }
+
+      .thumbnail {
+        height: 135px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-field.full {
+        grid-column: auto;
+      }
+
+      .toolbar {
+        align-items: stretch;
+      }
+
+      .toolbar .primary-button {
+        width: 100%;
+      }
+
+      .upload-panel {
+        padding: 16px;
+      }
+
+      .section-heading h3 {
+        font-size: 18px;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="container navbar">
-      <a class="logo" href="index.html">Michael 的資訊站</a>
 
-      <nav class="nav-links" aria-label="主要導覽">
-        <a href="index.html">首頁</a>
-        <a href="index.html#about">關於我</a>
-        <a href="skill.html">技術能力</a>
-        <a href="index.html#portfolio">作品集</a>
-        <a href="certifications.html" class="active">證照與培訓</a>
-        <a href="contact.html">聯絡方式</a>
-      </nav>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">⌘</div>
+      <div>
+        <h1 class="brand-name">Michael 的資訊站</h1>
+        <p class="brand-subtitle">MICHAEL // IT PORTFOLIO</p>
+      </div>
     </div>
-  </header>
+
+    <nav class="navigation" aria-label="主要導覽">
+      <a href="index.html">首頁</a>
+      <a href="skill.html">技術能力</a>
+      <a href="certificates.html" class="active">專業證書</a>
+      <a href="contact.html">聯絡方式</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
 
   <section class="hero">
-    <div class="container">
-      <div class="eyebrow">CERTIFICATES & TRAINING</div>
-      <h1>培訓證書</h1>
-      <p>持續學習、累積知識，記錄每一次專業成長。</p>
+    <div class="eyebrow">CERTIFICATION CENTER / 01</div>
+    <h2>專業證書中心</h2>
+    <p>
+      記錄人工智慧學習成果與資訊技術專業認證。
+      以清晰、精簡的縮圖呈現每一份證書，點擊即可查看完整內容。
+    </p>
+    <div class="hero-line"></div>
+  </section>
+
+  <section class="stats" aria-label="證書統計">
+    <div class="stat-card">
+      <div class="stat-label">證書總數</div>
+      <div class="stat-value" id="totalCount">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">AI 證書</div>
+      <div class="stat-value" id="aiCount">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">資訊證書</div>
+      <div class="stat-value" id="itCount">0</div>
     </div>
   </section>
 
-  <main class="container">
+  <div class="category-tabs" aria-label="證書分類">
+    <button class="tab-button active" data-filter="all"
+            type="button">全部證書</button>
+    <button class="tab-button" data-filter="ai"
+            type="button">AI 證書</button>
+    <button class="tab-button" data-filter="it"
+            type="button">資訊證書</button>
+  </div>
 
-    <!-- AI 課程 -->
-    <section class="category">
-      <div class="category-heading">
-        <div class="category-icon" aria-hidden="true">AI</div>
-        <div>
-          <h2>AI 課程</h2>
-          <p>人工智慧、生成式 AI 與相關培訓</p>
+  <section class="toolbar">
+    <input
+      id="searchInput"
+      class="search-input"
+      type="search"
+      placeholder="搜尋證書名稱..."
+      aria-label="搜尋證書名稱"
+    >
+    <button id="toggleUpload" class="primary-button"
+            type="button">＋ 新增證書</button>
+  </section>
+
+  <section id="uploadPanel" class="upload-panel">
+    <h3>新增證書資料</h3>
+    <p class="upload-description">
+      可選取本機圖片預覽，或輸入已上傳到 GitHub 的圖片網址。
+    </p>
+
+    <form id="certificateForm">
+      <div class="form-grid">
+
+        <div class="form-field">
+          <label for="newCategory">證書分類</label>
+          <select id="newCategory" required>
+            <option value="ai">AI 證書</option>
+            <option value="it">資訊證書</option>
+          </select>
         </div>
+
+        <div class="form-field">
+          <label for="newName">證書名稱</label>
+          <input id="newName" type="text"
+                 placeholder="例如：AI 課程證書" required>
+        </div>
+
+        <div class="form-field full">
+          <label for="newImageUrl">已上傳的證書圖片網址（選填）</label>
+          <input id="newImageUrl" type="url"
+                 placeholder="https://xc8429.github.io/image/certificates/xxx.jpg">
+        </div>
+
+        <div class="form-field full">
+          <label for="newImageFile">本機圖片預覽（選填）</label>
+          <input id="newImageFile" type="file"
+                 accept="image/*">
+        </div>
+
       </div>
 
-      <div class="certificate-grid" id="aiGrid"></div>
-    </section>
-
-    <!-- 資訊技術 -->
-    <section class="category">
-      <div class="category-heading">
-        <div class="category-icon" aria-hidden="true">⌘</div>
-        <div>
-          <h2>資訊技術</h2>
-          <p>網路、系統管理、資訊安全與技術培訓</p>
-        </div>
+      <div class="upload-notice">
+        注意：GitHub Pages 是靜態網站，這個表單不能直接把圖片永久上傳到 GitHub。
+        輸入已公開的圖片網址可以新增到目前頁面；選取本機圖片只能暫時預覽。
+        若要永久公開新增的證書，請先將圖片提交到 GitHub 儲存庫，
+        再將圖片網址加入下方 certificates 資料。
       </div>
 
-      <div class="certificate-grid" id="itGrid"></div>
-    </section>
+      <div class="form-actions">
+        <button class="primary-button" type="submit">
+          新增至目前頁面
+        </button>
+        <button id="cancelUpload" class="secondary-button"
+                type="button">取消</button>
+      </div>
 
-  </main>
+      <div id="formStatus" class="status-message"
+           role="status" aria-live="polite"></div>
+    </form>
+  </section>
 
-  <footer>
-    <div class="container">
-      © <span id="year"></span> Michael 的資訊站
-      ｜持續學習，精進技術
+  <section id="aiSection" class="certificate-section">
+    <div class="section-heading">
+      <div class="section-title-group">
+        <div class="section-icon" aria-hidden="true">⌘</div>
+        <div>
+          <h3>AI 專業證書</h3>
+          <p>ARTIFICIAL INTELLIGENCE</p>
+        </div>
+      </div>
+      <span class="count-label" id="aiSectionCount">0 ITEMS</span>
     </div>
-  </footer>
+    <div id="aiGrid" class="certificate-grid"></div>
+  </section>
 
-  <script>
-    /*
-      證書資料設定區
+  <section id="itSection" class="certificate-section">
+    <div class="section-heading">
+      <div class="section-title-group">
+        <div class="section-icon" aria-hidden="true">⌘</div>
+        <div>
+          <h3>資訊專業證書</h3>
+          <p>INFORMATION TECHNOLOGY</p>
+        </div>
+      </div>
+      <span class="count-label" id="itSectionCount">0 ITEMS</span>
+    </div>
+    <div id="itGrid" class="certificate-grid"></div>
+  </section>
 
-      image 請填入圖片路徑，例如：
-      images/certificates/ai-course.jpg
+</main>
 
-      點擊證書會另開新分頁。
-      請將實際證書圖片放進 GitHub 專案。
-    */
+<div id="viewer" class="viewer" role="dialog"
+     aria-modal="true" aria-label="證書放大檢視">
+  <div id="viewerCaption" class="viewer-caption"></div>
+  <button id="closeViewer" class="viewer-close"
+          type="button">✕ 關閉</button>
+  <img id="viewerImage" class="viewer-image" alt="">
+</div>
 
-  const certificates = {
+<footer>
+  <div>MICHAEL'S IT PORTFOLIO</div>
+  <div>專業證書中心｜持續學習・持續成長</div>
+</footer>
+
+<script>
+/*
+ * 永久公開的證書資料。
+ * 新增證書時，將資料放進 ai 或 it 陣列。
+ * 圖片網址必須是可公開存取的完整網址。
+ */
+const certificates = {
   ai: [
     {
       name: "AI 課程證書",
       image: "https://xc8429.github.io/image/certificates/40392.jpg"
     }
   ],
+
+  it: [
+    // 資訊證書上傳後，將資料加入此處。
+    // 範例：
+    // {
+    //   name: "電腦硬體裝修丙級",
+    //   image: "https://xc8429.github.io/image/certificates/it-cert.jpg"
+    // }
+  ]
+};
+
+// 目前頁面的暫時預覽資料，不會自動永久保存。
+const temporaryCertificates = {
+  ai: [],
   it: []
 };
-      it: [
-        // 在這裡新增實際的資訊技術培訓證書
-        // {
-        //   name: "實際資訊技術課程名稱",
-        //   image: "images/certificates/it-course.jpg"
-        // }
-      ]
-    };
 
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+const aiGrid = document.getElementById("aiGrid");
+const itGrid = document.getElementById("itGrid");
+const aiSection = document.getElementById("aiSection");
+const itSection = document.getElementById("itSection");
+const searchInput = document.getElementById("searchInput");
+const uploadPanel = document.getElementById("uploadPanel");
+const formStatus = document.getElementById("formStatus");
 
-    function renderCertificates(items, gridId, categoryName) {
-      const grid = document.getElementById(gridId);
+let activeFilter = "all";
+let nextTemporaryId = 1;
 
-      if (items.length === 0) {
-        grid.innerHTML = `
-          <div class="empty">
-            目前尚未新增${categoryName}證書
-          </div>
-        `;
-        return;
+function getCertificates(type) {
+  return certificates[type].map((cert, index) => ({
+    ...cert,
+    type,
+    permanent: true,
+    id: `${type}-permanent-${index}`
+  })).concat(
+    temporaryCertificates[type]
+  );
+}
+
+function allCertificates() {
+  return [
+    ...getCertificates("ai"),
+    ...getCertificates("it")
+  ];
+}
+
+function updateStats() {
+  const aiTotal = getCertificates("ai").length;
+  const itTotal = getCertificates("it").length;
+
+  document.getElementById("totalCount").textContent =
+    aiTotal + itTotal;
+  document.getElementById("aiCount").textContent = aiTotal;
+  document.getElementById("itCount").textContent = itTotal;
+
+  document.getElementById("aiSectionCount").textContent =
+    `${aiTotal} ITEMS`;
+  document.getElementById("itSectionCount").textContent =
+    `${itTotal} ITEMS`;
+}
+
+function createEmptyState(message) {
+  const empty = document.createElement("div");
+  empty.className = "empty-state";
+
+  const title = document.createElement("strong");
+  title.textContent = "尚無符合條件的證書";
+
+  const description = document.createElement("span");
+  description.textContent = message;
+
+  empty.append(title, description);
+  return empty;
+}
+
+function openViewer(cert) {
+  const viewer = document.getElementById("viewer");
+  const viewerImage = document.getElementById("viewerImage");
+
+  viewerImage.src = cert.image;
+  viewerImage.alt = cert.name;
+  document.getElementById("viewerCaption").textContent =
+    cert.name;
+  viewer.classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.getElementById("closeViewer").focus();
+}
+
+function closeViewer() {
+  document.getElementById("viewer").classList.remove("open");
+  document.getElementById("viewerImage").src = "";
+  document.body.style.overflow = "";
+}
+
+function createCertificateCard(cert) {
+  const card = document.createElement("article");
+  card.className = "certificate-card";
+
+  const thumbnailButton = document.createElement("button");
+  thumbnailButton.type = "button";
+  thumbnailButton.className = "thumbnail-button";
+  thumbnailButton.setAttribute(
+    "aria-label",
+    `放大查看：${cert.name}`
+  );
+
+  const img = document.createElement("img");
+  img.className = "thumbnail";
+  img.src = cert.image;
+  img.alt = cert.name;
+  img.loading = "lazy";
+
+  img.addEventListener("error", () => {
+    img.alt = "圖片載入失敗，請檢查圖片網址";
+    img.removeAttribute("src");
+    img.style.background = "#27374a";
+    img.style.padding = "20px";
+  });
+
+  thumbnailButton.addEventListener("click", () => {
+    openViewer(cert);
+  });
+
+  thumbnailButton.appendChild(img);
+
+  const info = document.createElement("div");
+  info.className = "card-info";
+
+  const tag = document.createElement("span");
+  tag.className = "card-tag";
+  tag.textContent = cert.type === "ai" ? "AI CERT" : "IT CERT";
+
+  const title = document.createElement("h4");
+  title.className = "card-title";
+  title.textContent = cert.name;
+
+  info.append(tag, title);
+
+  if (!cert.permanent) {
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.className = "secondary-button";
+    removeButton.textContent = "移除預覽";
+
+    removeButton.addEventListener("click", () => {
+      const list = temporaryCertificates[cert.type];
+      const index = list.findIndex(item => item.id === cert.id);
+
+      if (index !== -1) {
+        if (list[index].objectUrl) {
+          URL.revokeObjectURL(list[index].objectUrl);
+        }
+
+        list.splice(index, 1);
+        renderCertificates();
       }
+    });
 
-      grid.innerHTML = items.map((item, index) => {
-        const name = escapeHTML(item.name);
-        const image = escapeHTML(item.image);
+    actions.appendChild(removeButton);
+    info.appendChild(actions);
+  }
 
-        return `
-          <article class="certificate-item">
-            <a
-              class="certificate-link"
-              href="${image}"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="另開視窗檢視${name}"
-              title="點擊查看證書"
-            >
-              <div class="thumbnail">
-                <img
-                  src="${image}"
-                  alt="${name}"
-                  loading="lazy"
-                  draggable="false"
-                >
-              </div>
+  card.append(thumbnailButton, info);
+  return card;
+}
 
-              <div class="certificate-name">${name}</div>
-            </a>
-          </article>
-        `;
-      }).join("");
+function renderGrid(grid, type, query) {
+  grid.replaceChildren();
 
-      grid.querySelectorAll("img").forEach(img => {
-        img.addEventListener("error", () => {
-          const thumbnail = img.parentElement;
+  const items = getCertificates(type).filter(cert =>
+    cert.name.toLowerCase().includes(query.toLowerCase())
+  );
 
-          thumbnail.innerHTML = `
-            <div class="placeholder">
-              ▤
-              <span>圖片載入失敗</span>
-            </div>
-          `;
-        }, { once: true });
-      });
+  if (items.length === 0) {
+    grid.appendChild(createEmptyState(
+      query ? "請嘗試其他搜尋關鍵字。" :
+      "上傳圖片到 GitHub 後，加入 certificates 資料即可展示。"
+    ));
+    return;
+  }
+
+  items.forEach(cert => {
+    grid.appendChild(createCertificateCard(cert));
+  });
+}
+
+function renderCertificates() {
+  const query = searchInput.value.trim();
+
+  aiSection.hidden = !["all", "ai"].includes(activeFilter);
+  itSection.hidden = !["all", "it"].includes(activeFilter);
+
+  renderGrid(aiGrid, "ai", query);
+  renderGrid(itGrid, "it", query);
+  updateStats();
+
+  document.querySelectorAll(".tab-button").forEach(button => {
+    const selected = button.dataset.filter === activeFilter;
+    button.classList.toggle("active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+// 分類切換
+document.querySelectorAll(".tab-button").forEach(button => {
+  button.addEventListener("click", () => {
+    activeFilter = button.dataset.filter;
+    renderCertificates();
+  });
+});
+
+// 搜尋證書
+searchInput.addEventListener("input", renderCertificates);
+
+// 開關新增區域
+document.getElementById("toggleUpload").addEventListener("click", () => {
+  uploadPanel.classList.toggle("open");
+
+  if (uploadPanel.classList.contains("open")) {
+    document.getElementById("newName").focus();
+  }
+});
+
+document.getElementById("cancelUpload").addEventListener("click", () => {
+  uploadPanel.classList.remove("open");
+  formStatus.textContent = "";
+});
+
+// 新增證書至目前頁面的暫時預覽
+document.getElementById("certificateForm")
+  .addEventListener("submit", event => {
+    event.preventDefault();
+
+    const type = document.getElementById("newCategory").value;
+    const name = document.getElementById("newName").value.trim();
+    const imageUrl = document.getElementById("newImageUrl").value.trim();
+    const fileInput = document.getElementById("newImageFile");
+    const file = fileInput.files[0];
+
+    if (!name) {
+      formStatus.textContent = "請輸入證書名稱。";
+      return;
     }
 
-    function escapeHTML(value) {
-      return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      })[char]);
+    if (file && !file.type.startsWith("image/")) {
+      formStatus.textContent = "請選擇有效的圖片檔案。";
+      return;
     }
 
-    renderCertificates(certificates.ai, "aiGrid", "AI 課程");
-    renderCertificates(certificates.it, "itGrid", "資訊技術");
+    if (!imageUrl && !file) {
+      formStatus.textContent =
+        "請輸入已公開的圖片網址，或選擇本機圖片預覽。";
+      return;
+    }
 
-    /*
-      注意：
-      新分頁直接開啟圖片，瀏覽器仍可能提供另存圖片功能。
-      若要限制下載，建議改用獨立的證書檢視 HTML 頁面，
-      並搭配伺服器權限控制；GitHub Pages 本身無法真正禁止下載。
-    */
-  </script>
+    let image = imageUrl;
+    let objectUrl = null;
+
+    if (file) {
+      objectUrl = URL.createObjectURL(file);
+      image = objectUrl;
+    }
+
+    temporaryCertificates[type].push({
+      id: `temporary-${nextTemporaryId++}`,
+      name,
+      image,
+      objectUrl,
+      type,
+      permanent: false
+    });
+
+    activeFilter = type;
+    searchInput.value = "";
+    renderCertificates();
+
+    formStatus.textContent =
+      "已加入目前頁面的預覽。請注意：這不會自動儲存至 GitHub。";
+
+    document.getElementById("certificateForm").reset();
+  });
+
+// 放大檢視操作
+document.getElementById("closeViewer")
+  .addEventListener("click", closeViewer);
+
+document.getElementById("viewer").addEventListener("click", event => {
+  if (event.target.id === "viewer") {
+    closeViewer();
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeViewer();
+  }
+});
+
+// 初始化
+renderCertificates();
+</script>
+
 </body>
 </html>
