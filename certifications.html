@@ -963,7 +963,18 @@ function createEmptyState(message) {
 }
 
 let rotationAngle = 0;
+let zoomLevel = 1;
 
+document.getElementById("zoomIn").addEventListener("click", () => {
+  zoomLevel = Math.min(zoomLevel + 0.2, 3);
+  document.getElementById("viewerImage").style.scale = zoomLevel;
+});
+
+document.getElementById("zoomOut").addEventListener("click", () => {
+  zoomLevel = Math.max(zoomLevel - 0.2, 0.5);
+  document.getElementById("viewerImage").style.scale = zoomLevel;
+});
+  
 document.getElementById("rotateLeft").addEventListener("click", () => {
   rotationAngle -= 90;
   document.getElementById("viewerImage").style.transform =
@@ -985,6 +996,9 @@ document.getElementById("resetRotation").addEventListener("click", () => {
   const viewerImage = document.getElementById("viewerImage");
 
   viewerImage.src = cert.image;
+  zoomLevel = 1;
+  viewerImage.style.scale = 1;
+    
   viewerImage.alt = cert.name;
   document.getElementById("viewerCaption").textContent =
     cert.name;
