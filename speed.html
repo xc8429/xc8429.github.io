@@ -334,10 +334,9 @@ if (typeof Speedtest !== "undefined") {
     test.setSelectedServer({
         name: "Singapore",
         server: "https://speedtest.dsgroupmedia.com/",
-        dlURL: "backend/garbage.php",
-        ulURL: "backend/empty.php",
-        pingURL: "backend/empty.php",
-        getIpURL: "backend/getIP.php"
+        dlURL: "backend/garbage.php?cors=true",
+        ulURL: "backend/empty.php?cors=true",
+        pingURL: "backend/empty.php?cors=true",
     });
 
     // 測試順序：下載、上傳、Ping
