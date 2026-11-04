@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>打卡提醒自動化系統｜專案紀錄</title>
+<style>
+:root {
+  --bg: #111820;
+  --panel: #1b2632;
+  --panel2: #202e3b;
+  --cyan: #35d4d0;
+  --blue: #55aaff;
+  --text: #e5edf5;
+  --muted: #9aabba;
+  --border: #304252;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.8;
+}
+header {
+  padding: 65px 20px 45px;
+  text-align: center;
+  background: linear-gradient(135deg,#172532,#142d3b);
+  border-bottom: 1px solid var(--border);
+}
+.tag {
+  color: var(--cyan);
+  letter-spacing: 3px;
+  font-size: 13px;
+}
+h1 {
+  font-size: 32px;
+  margin: 12px 0;
+}
+header p { color: var(--muted); }
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px 20px 70px;
+}
+section {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 25px 28px;
+  margin-bottom: 22px;
+}
+h2 {
+  color: var(--cyan);
+  font-size: 21px;
+  margin-top: 0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+h3 { color: var(--blue); }
+p, li { color: var(--text); }
+small, .muted { color: var(--muted); }
+ul { padding-left: 24px; }
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 12px;
+}
+.info {
+  background: var(--panel2);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.info strong {
+  display: block;
+  color: var(--cyan);
+}
+code {
+  color: #8ee9e4;
+  background: #101a23;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+pre {
+  background: #0c141c;
+  color: #a9e9e5;
+  padding: 18px;
+  border-radius: 8px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+.status {
+  display: inline-block;
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px;
+  border-top: 1px solid var(--border);
+}
+@media(max-width:600px) {
+  h1 { font-size: 25px; }
+  section { padding: 20px; }
+}
+@media print {
+  body { background: white; color: black; }
+  section { break-inside: avoid; border: 1px solid #ccc; }
+  h2, h3, p, li { color: black; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="tag">MICHAEL'S IT PORTFOLIO / PROJECT</div>
+  <h1>打卡提醒自動化系統</h1>
+  <p>Windows BAT 自動化提醒專案紀錄</p>
+  <span class="status">PROJECT DOCUMENTATION</span>
+</header>
+
+<main class="container">
+
+<section>
+<h2>01｜專案背景</h2>
+<p>
+為避免工作期間因忙碌而忘記上下班打卡，
+因此希望利用 Windows 內建功能與批次檔，
+建立一套不需要額外安裝軟體的打卡提醒系統。
+</p>
+<p>
+本專案以 Windows 11 為環境，
+採用 BAT 批次檔與 Windows 工作排程器的方向，
+降低額外軟體安裝需求。
+</p>
+</section>
+
+<section>
+<h2>02｜設備與環境</h2>
+<div class="info-grid">
+  <div class="info"><strong>作業系統</strong>Windows 11 64-bit</div>
+  <div class="info"><strong>處理器</strong>Intel Core i5-8250U</div>
+  <div class="info"><strong>記憶體</strong>8 GB RAM</div>
+  <div class="info"><strong>顯示晶片</strong>Intel UHD Graphics 620</div>
+  <div class="info"><strong>開發工具</strong>Windows CMD / BAT</div>
+  <div class="info"><strong>儲存空間</strong>約 238 GB</div>
+</div>
+</section>
+
+<section>
+<h2>03｜使用者需求</h2>
+<ul>
+  <li>上班時間 07:40 自動提醒。</li>
+  <li>下班時間 16:30 自動提醒。</li>
+  <li>使用黑色 CMD 視窗顯示文字提醒。</li>
+  <li>不依賴 PowerShell、VBS 或第三方軟體。</li>
+  <li>不希望 BAT 必須一直開啟才能等待提醒。</li>
+  <li>希望電腦開機後即可具備自動提醒能力。</li>
+</ul>
+</section>
+
+<section>
+<h2>04｜實際執行與開發過程</h2>
+
+<h3>第一階段：確認提醒方式</h3>
+<p>
+一開始嘗試使用 BAT 檔進行時間判斷，
+並在指定時間顯示提醒訊息。
+</p>
+
+<h3>第二階段：調整執行方式</h3>
+<p>
+發現如果單純使用 BAT 迴圈持續檢查時間，
+就必須讓 CMD 視窗一直保持執行。
+這不符合希望背景等待、時間到才提醒的需求。
+</p>
+
+<h3>第三階段：改採 Windows 工作排程器</h3>
+<p>
+改以 Windows 內建的工作排程器作為時間觸發機制。
+讓系統在指定時間啟動 BAT，
+不需要額外安裝排程軟體。
+</p>
+
+<h3>第四階段：確認純 BAT 限制</h3>
+<p>
+純 BAT 可以透過 CMD 顯示文字，
+但本身不具備在關閉後仍持續等待未來時間的能力。
+因此必須由 Windows 工作排程器負責觸發。
+</p>
+</section>
+
+<section>
+<h2>05｜問題與解決方式</h2>
+<div class="info-grid">
+  <div class="info">
+    <strong>問題一：提醒視窗需求</strong>
+    希望不使用 PowerShell 視窗或額外彈窗工具。
+    <p>解決：改用 CMD 文字視窗提醒。</p>
+  </div>
+  <div class="info">
+    <strong>問題二：BAT 必須持續執行</strong>
+    單純時間迴圈需要常駐執行。
+    <p>解決：改由工作排程器定時啟動 BAT。</p>
+  </div>
+  <div class="info">
+    <strong>問題三：政府電腦限制</strong>
+    無法自由安裝額外程式。
+    <p>解決：優先使用 Windows 內建工具。</p>
+  </div>
+  <div class="info">
+    <strong>問題四：自動啟動方式</strong>
+    希望不用每天手動開啟提醒程式。
+    <p>解決：規劃開機後由系統排程負責執行。</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2>06｜核心程式概念</h2>
+<p>BAT 可以透過以下指令顯示提醒訊息：</p>
+<pre>@echo off
+chcp 65001 >nul
+title 打卡提醒系統
+
+echo ============================
+echo       打卡提醒系統
+echo ============================
+echo.
+echo 上班打卡時間到了！
+echo.
+pause</pre>
+
+<p>
+這段程式碼示範 CMD 文字提醒。
+實際上線時，應依照不同觸發時間設定對應訊息，
+再由工作排程器啟動。
+</p>
+</section>
+
+<section>
+<h2>07｜目前完成與待辦事項</h2>
+<ul>
+  <li>已確認上下班提醒時間。</li>
+  <li>已確認使用 CMD 文字視窗的方向。</li>
+  <li>已釐清純 BAT 與常駐執行的限制。</li>
+  <li>已確認可利用 Windows 工作排程器觸發 BAT。</li>
+  <li>待完成：建立工作排程器工作。</li>
+  <li>待完成：測試 07:40 與 16:30 是否正常提醒。</li>
+  <li>待完成：確認電腦重新開機後的執行狀況。</li>
+</ul>
+</section>
+
+<section>
+<h2>08｜專案學習成果</h2>
+<ul>
+  <li>了解 BAT 批次檔基本指令與執行方式。</li>
+  <li>理解常駐程式與排程觸發的差異。</li>
+  <li>學習使用 Windows 內建工作排程器的應用方向。</li>
+  <li>依照實際環境限制調整技術方案。</li>
+  <li>透過問題分析，將需求轉化為可執行的自動化流程。</li>
+</ul>
+</section>
+
+</main>
+
+<footer>
+  MICHAEL'S IT PORTFOLIO<br>
+  打卡提醒自動化系統｜專案紀錄
+</footer>
+</body>
+</html>
