@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>網路速度測試 | Michael 的資訊站</title>
+
+<style>
+:root {
+    --bg: #111820;
+    --panel: #1b2632;
+    --panel2: #202e3b;
+    --cyan: #35d4d0;
+    --blue: #55aaff;
+    --text: #e5edf5;
+    --muted: #9aabba;
+    --border: #304252;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 18px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, "Microsoft JhengHei", sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    padding: 35px 15px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    color: var(--cyan);
+    margin: 0 0 15px;
+}
+
+.subtitle {
+    color: var(--muted);
+}
+
+.home-button {
+    display: inline-block;
+    padding: 11px 28px;
+    margin-bottom: 12px;
+    background: var(--cyan);
+    color: var(--bg);
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: bold;
+    transition: .25s;
+}
+
+.home-button:hover {
+    background: transparent;
+    color: var(--cyan);
+    outline: 1px solid var(--cyan);
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 22px;
+}
+
+h2 {
+    color: var(--cyan);
+    margin-top: 0;
+}
+
+.description {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.metric {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 25px 12px;
+    text-align: center;
+}
+
+.metric-label {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.metric-value {
+    font-size: clamp(30px, 6vw, 48px);
+    font-weight: bold;
+    margin: 15px 0 5px;
+    color: var(--text);
+    overflow-wrap: anywhere;
+}
+
+.metric-unit {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.download .metric-value {
+    color: var(--cyan);
+}
+
+.upload .metric-value {
+    color: var(--blue);
+}
+
+.small-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.small-metric {
+    background: var(--panel2);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.small-metric strong {
+    display: block;
+    font-size: 23px;
+    margin-top: 8px;
+}
+
+.progress-box {
+    margin: 20px 0;
+}
+
+.progress-track {
+    height: 8px;
+    background: #304252;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--cyan);
+    transition: width .2s;
+}
+
+.status {
+    color: var(--muted);
+    text-align: center;
+    margin: 20px 0;
+}
+
+.start-button {
+    display: block;
+    width: 180px;
+    height: 65px;
+    margin: 25px auto;
+    border: none;
+    border-radius: 40px;
+    background: var(--cyan);
+    color: #111820;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.start-button:hover {
+    background: var(--blue);
+    transform: scale(1.04);
+}
+
+.start-button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 35px;
+}
+
+@media(max-width:600px) {
+    body {
+        padding: 15px 10px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .metrics {
+        gap: 8px;
+    }
+
+    .metric {
+        padding: 20px 8px;
+    }
+}
+</style>
+
+<!-- LibreSpeed 測速引擎 -->
+<script src="https://cdn.jsdelivr.net/gh/librespeed/speedtest@master/speedtest.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <h1>網路速度測試</h1>
+
+    <a href="index.html" class="home-button">
+        ← 返回資訊站首頁
+    </a>
+
+    <p class="subtitle">
+        NETWORK SPEED TEST｜網路連線品質檢測
+    </p>
+</header>
+
+<section class="card">
+
+    <h2>01｜網路速度測試</h2>
+
+    <p class="description">
+        點擊 START 開始測試目前網路連線速度。
+        測試結果包含下載、上傳及網路延遲。
+    </p>
+
+    <div class="metrics">
+
+        <div class="metric download">
+            <div class="metric-label">DOWNLOAD</div>
+            <div class="metric-value" id="dlText">--</div>
+            <div class="metric-unit">Mbps｜下載速度</div>
+        </div>
+
+        <div class="metric upload">
+            <div class="metric-label">UPLOAD</div>
+            <div class="metric-value" id="ulText">--</div>
+            <div class="metric-unit">Mbps｜上傳速度</div>
+        </div>
+
+    </div>
+
+    <div class="small-metrics">
+
+        <div class="small-metric">
+            <span class="metric-label">PING</span>
+            <strong id="pingText">-- ms</strong>
+        </div>
+
+        <div class="small-metric">
+            <span class="metric-label">JITTER</span>
+            <strong id="jitterText">-- ms</strong>
+        </div>
+
+    </div>
+
+    <div class="progress-box">
+        <div class="progress-track">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <div class="status" id="statusText">
+        READY｜準備就緒
+    </div>
+
+    <button class="start-button" id="startBtn"
+            onclick="startStop()">
+        START
+    </button>
+
+</section>
+
+<section class="card">
+    <h2>02｜測試項目說明</h2>
+
+    <p><strong>Download：</strong> 網路下載速度。</p>
+    <p><strong>Upload：</strong> 網路上傳速度。</p>
+    <p><strong>Ping：</strong> 網路回應延遲時間。</p>
+    <p><strong>Jitter：</strong> 網路延遲的變動程度。</p>
+</section>
+
+<footer>
+    Michael 的資訊站｜系統維運工具
+</footer>
+
+</div>
+
+<script>
+
+const $ = id => document.getElementById(id);
+
+const btn = $("startBtn");
+const statusText = $("statusText");
+const progressBar = $("progressBar");
+
+if (typeof Speedtest !== "undefined") {
+
+    const test = new Speedtest();
+
+    // 使用 LibreSpeed 新加坡測速節點
+    test.setSelectedServer({
+        name: "Singapore",
+        server: "https://speedtest.dsgroupmedia.com/",
+        dlURL: "backend/garbage.php",
+        ulURL: "backend/empty.php",
+        pingURL: "backend/empty.php",
+        getIpURL: "backend/getIP.php"
+    });
+
+    // 測試順序：下載、上傳、Ping
+    test.setParameter("test_order", "D_U_P");
+
+    test.onupdate = function(data) {
+
+        if (data.dlStatus !== "") {
+            $("dlText").textContent = data.dlStatus;
+        }
+
+        if (data.ulStatus !== "") {
+            $("ulText").textContent = data.ulStatus;
+        }
+
+        if (data.pingStatus !== "") {
+            $("pingText").textContent =
+                data.pingStatus + " ms";
+        }
+
+        if (data.jitterStatus !== "") {
+            $("jitterText").textContent =
+                data.jitterStatus + " ms";
+        }
+
+        let progress = 0;
+
+        if (data.testState === 1) {
+            statusText.textContent = "DOWNLOAD｜下載測試中";
+            progress = data.dlProgress * 100;
+        }
+        else if (data.testState === 2) {
+            statusText.textContent = "PING｜延遲測試中";
+            progress = data.pingProgress * 100;
+        }
+        else if (data.testState === 3) {
+            statusText.textContent = "UPLOAD｜上傳測試中";
+            progress = data.ulProgress * 100;
+        }
+
+        progressBar.style.width = progress + "%";
+    };
+
+    test.onend = function(aborted) {
+
+        btn.disabled = false;
+        btn.textContent = "START";
+        progressBar.style.width = aborted ? "0%" : "100%";
+
+        statusText.textContent = aborted
+            ? "測試已取消"
+            : "TEST COMPLETED｜測試完成";
+    };
+
+    window.startStop = function() {
+
+        if (test.getState() === 3) {
+            test.abort();
+            btn.disabled = true;
+            statusText.textContent = "正在停止測試...";
+            return;
+        }
+
+        $("dlText").textContent = "--";
+        $("ulText").textContent = "--";
+        $("pingText").textContent = "-- ms";
+        $("jitterText").textContent = "-- ms";
+
+        progressBar.style.width = "0%";
+        statusText.textContent = "正在啟動測速...";
+
+        btn.textContent = "STOP";
+
+        try {
+            test.start();
+        } catch (error) {
+            btn.textContent = "START";
+            statusText.textContent = "無法啟動測試，請檢查網路或伺服器";
+            console.error(error);
+        }
+    };
+
+} else {
+    statusText.textContent = "測速引擎載入失敗，請檢查網路";
+    btn.disabled = true;
+}
+
+</script>
+
+</body>
+</html>
