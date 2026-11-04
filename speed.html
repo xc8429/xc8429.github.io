@@ -332,12 +332,13 @@ if (typeof Speedtest !== "undefined") {
 
     // 使用 LibreSpeed 新加坡測速節點
     test.setSelectedServer({
-        name: "Singapore",
-        server: "https://speedtest.dsgroupmedia.com/",
-        dlURL: "backend/garbage.php?cors=true",
-        ulURL: "backend/empty.php?cors=true",
-        pingURL: "backend/empty.php?cors=true",
-    });
+    name: "Tokyo",
+    server: "https://librespeed.a573.net/",
+    dlURL: "backend/garbage.php?cors=true",
+    ulURL: "backend/empty.php?cors=true",
+    pingURL: "backend/empty.php?cors=true",
+    getIpURL: "backend/getIP.php?cors=true"
+});
 
     // 測試順序：下載、上傳、Ping
     test.setParameter("test_order", "D_U_P");
