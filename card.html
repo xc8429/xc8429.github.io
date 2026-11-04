@@ -99,6 +99,29 @@ pre {
   border-radius: 20px;
   font-size: 13px;
 }
+  
+.home-button {
+  display: inline-block;
+  margin: 12px 0 8px;
+  padding: 11px 35px;
+  background: var(--cyan);
+  color: #111820;
+  border: 2px solid var(--cyan);
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 0 14px rgba(53, 212, 208, 0.25);
+  transition: 0.25s;
+}
+
+.home-button:hover {
+  background: transparent;
+  color: var(--cyan);
+  box-shadow: 0 0 20px rgba(53, 212, 208, 0.45);
+}
+  
 footer {
   text-align: center;
   color: var(--muted);
@@ -119,11 +142,14 @@ footer {
 
 <body>
 <header>
-  <a href="index.html" class="home-button">首頁</a>
+  
   <div class="tag">MICHAEL'S IT PORTFOLIO / PROJECT</div>
   <h1>打卡提醒自動化系統</h1>
   <p>Windows BAT 自動化提醒專案紀錄</p>
   <span class="status">PROJECT DOCUMENTATION</span>
+  <a href="index.html" class="home-button">
+  ← 返回首頁
+</a>
 </header>
 
 <main class="container">
