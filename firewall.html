@@ -405,7 +405,6 @@ https://xc8429.github.io/firewall.html
 let firewallRules = [];
 
 function addRule() {
-
     const name = document.getElementById("ruleName").value.trim();
     const source = document.getElementById("sourceIP").value.trim();
     const destination = document.getElementById("destIP").value.trim();
@@ -419,22 +418,19 @@ function addRule() {
     }
 
     if (!Number.isInteger(Number(port)) ||
-        Number(port) < 1 ||
-        Number(port) > 65535) {
+        Number(port) < 1 || Number(port) > 65535) {
         alert("Port 必須介於 1 到 65535！");
         return;
     }
 
-    const rule = {
+    firewallRules.push({
         name,
         source,
         destination,
         port,
         protocol,
         action
-    };
-
-    firewallRules.push(rule);
+    });
 
     renderRules();
 
@@ -447,13 +443,10 @@ function addRule() {
 }
 
 function renderRules() {
-
     const ruleList = document.getElementById("ruleList");
-
     ruleList.innerHTML = "";
 
     firewallRules.forEach(rule => {
-
         const row = document.createElement("tr");
 
         [
@@ -464,15 +457,12 @@ function renderRules() {
             rule.protocol,
             rule.action
         ].forEach(value => {
-
             const cell = document.createElement("td");
             cell.textContent = value;
             row.appendChild(cell);
-
         });
 
         ruleList.appendChild(row);
-
     });
 }
 </script>
