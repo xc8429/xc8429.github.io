@@ -294,6 +294,112 @@ th {
     </main>
 
     </div>
+let firewallRules = [];
 
+function addRule() {
+
+    const name = document.getElementById("ruleName").value.trim();
+    const source = document.getElementById("sourceIP").value.trim();
+    const destination = document.getElementById("destIP").value.trim();
+    const port = document.getElementById("port").value;
+    const protocol = document.getElementById("protocol").value;
+    const action = document.getElementById("action").value;
+
+    // 基本欄位檢查
+    if (!name || !source || !destination || !port) {
+        alert("請完整填寫所有欄位！");
+        return;
+    }
+
+    // 檢查 Port 範圍
+    if (Number(port) < 1 || Number(port) > 65535) {
+        alert("Port 必須介於 1 到 65535！");
+        return;
+    }
+
+    // 建立規則
+    const rule = {
+        name: name,
+        source: source,
+        destination: destination,
+        port: port,
+        protocol: protocol,
+        action: action
+    };
+
+    firewallRules.push(rule);
+
+    // 更新畫面
+    renderRules();
+
+    // 清空輸入欄位
+    document.getElementById("ruleName").value = "";
+    document.getElementById("sourceIP").value = "";
+    document.getElementById("destIP").value = "";
+    document.getElementById("port").value = "";
+
+    alert("防火牆規則新增成功！");
+}
+
+// 顯示規則
+function renderRules() {
+
+    const ruleList = document.getElementById("ruleList");
+
+    ruleList.innerHTML = "";
+
+    firewallRules.forEach((rule) => {
+
+        const row = document.createElement("tr");
+
+        const values = [
+            rule.name,
+            rule.source,
+            rule.destination,
+            rule.port,
+            rule.protocol,
+            rule.action
+        ];
+
+        values.forEach((value) => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        ruleList.appendChild(row);
+
+    });
+}
+
+</script>
+```
+
+### 2. 儲存並測試
+
+Commit changes 後，開啟：
+
+https://xc8429.github.io/firewall.html
+
+試著新增這筆規則：
+
+| 欄位 | 輸入內容 |
+|---|---|
+| 規則名稱 | Allow HTTPS |
+| 來源 IP | 192.168.1.10 |
+| 目的 IP | 8.8.8.8 |
+| Port | 443 |
+| Protocol | TCP |
+| Action | ALLOW |
+
+<badge color="success">預期結果</badge>
+
+按下新增規則後，下方表格應該出現一筆 Allow HTTPS。
+
+---
+
+**完成後告訴我結果。**
+
+下一階段我們會加入真正有意思的功能：輸入一組網路封包資料，讓系統依照防火牆規則自動判斷 ALLOW 或 DENY。
 </body>
 </html>
