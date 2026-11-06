@@ -377,28 +377,7 @@ function renderRules() {
 
 ### 2. 儲存並測試
 
-Commit changes 後，開啟：
 
-https://xc8429.github.io/firewall.html
-
-試著新增這筆規則：
-
-| 欄位 | 輸入內容 |
-|---|---|
-| 規則名稱 | Allow HTTPS |
-| 來源 IP | 192.168.1.10 |
-| 目的 IP | 8.8.8.8 |
-| Port | 443 |
-| Protocol | TCP |
-| Action | ALLOW |
-
-<badge color="success">預期結果</badge>
-
-按下新增規則後，下方表格應該出現一筆 Allow HTTPS。
-
----
-
-**完成後告訴我結果。**
 
 下一階段我們會加入真正有意思的功能：輸入一組網路封包資料，讓系統依照防火牆規則自動判斷 ALLOW 或 DENY。
 <script>
