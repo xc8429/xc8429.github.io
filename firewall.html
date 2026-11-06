@@ -1,1 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firewall Policy Analyzer | Michael 資訊站</title>
 
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, "Microsoft JhengHei", sans-serif;
+    background: #111820;
+    color: #e5edf5;
+}
+
+header {
+    padding: 25px;
+    background: #18232e;
+    border-bottom: 1px solid #263b4d;
+}
+
+header h1 {
+    color: #35c9e8;
+    margin: 0;
+}
+
+header p {
+    color: #91a5b7;
+    margin-bottom: 0;
+}
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 110px);
+}
+
+.sidebar {
+    width: 220px;
+    padding: 25px 15px;
+    background: #17212b;
+    border-right: 1px solid #263b4d;
+}
+
+.sidebar h3 {
+    color: #35c9e8;
+}
+
+.sidebar a {
+    display: block;
+    color: #c6d4df;
+    text-decoration: none;
+    padding: 12px;
+    margin: 6px 0;
+    border-radius: 6px;
+}
+
+.sidebar a:hover {
+    background: #263b4d;
+    color: #35c9e8;
+}
+
+.main {
+    flex: 1;
+    padding: 30px;
+}
+
+.card {
+    background: #1a2733;
+    border: 1px solid #2b4052;
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 22px;
+}
+
+.card h2 {
+    color: #35c9e8;
+    margin-top: 0;
+}
+
+.status {
+    color: #39dca0;
+    font-weight: bold;
+}
+
+@media(max-width:700px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Firewall Policy Analyzer</h1>
+    <p>防火牆政策分析與網路安全模擬系統</p>
+</header>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h3>功能導覽</h3>
+        <a href="#dashboard">系統總覽</a>
+        <a href="#rules">防火牆規則</a>
+        <a href="#analyzer">封包分析</a>
+        <a href="#logs">流量紀錄</a>
+    </aside>
+
+    <main class="main">
+
+        <section class="card" id="dashboard">
+            <h2>系統總覽</h2>
+            <p>系統狀態：
+                <span class="status">模擬系統運作中</span>
+            </p>
+            <p>工具名稱：Firewall Policy Analyzer</p>
+            <p>版本：1.0</p>
+        </section>
+
+        <section class="card" id="rules">
+            <h2>防火牆規則管理</h2>
+            <p>管理網路流量允許與拒絕政策。</p>
+            <p>目前尚未建立規則。</p>
+        </section>
+
+        <section class="card" id="analyzer">
+            <h2>封包分析</h2>
+            <p>輸入網路封包資訊，進行防火牆政策判斷。</p>
+            <p>分析功能即將加入。</p>
+        </section>
+
+        <section class="card" id="logs">
+            <h2>流量紀錄</h2>
+            <p>顯示防火牆模擬判斷結果。</p>
+            <p>目前尚無紀錄。</p>
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>
