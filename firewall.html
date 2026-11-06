@@ -99,6 +99,55 @@ header p {
         padding: 18px;
     }
 }
+    .form-group {
+    margin: 15px 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #35c9e8;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 11px;
+    background: #111820;
+    border: 1px solid #38536a;
+    border-radius: 5px;
+    color: white;
+}
+
+button {
+    padding: 11px 22px;
+    background: #087f9b;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0aa6c9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #38536a;
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    color: #35c9e8;
+}
 </style>
 </head>
 
@@ -132,26 +181,70 @@ header p {
         </section>
 
         <section class="card" id="rules">
-            <h2>防火牆規則管理</h2>
-            <p>管理網路流量允許與拒絕政策。</p>
-            <p>目前尚未建立規則。</p>
-        </section>
+    <h2>防火牆規則管理</h2>
+    <p>建立網路流量允許與拒絕政策。</p>
 
-        <section class="card" id="analyzer">
-            <h2>封包分析</h2>
-            <p>輸入網路封包資訊，進行防火牆政策判斷。</p>
-            <p>分析功能即將加入。</p>
-        </section>
+    <div class="form-group">
+        <label>規則名稱</label>
+        <input type="text" id="ruleName" placeholder="例如：Allow HTTPS">
+    </div>
 
-        <section class="card" id="logs">
-            <h2>流量紀錄</h2>
-            <p>顯示防火牆模擬判斷結果。</p>
-            <p>目前尚無紀錄。</p>
-        </section>
+    <div class="form-group">
+        <label>來源 IP</label>
+        <input type="text" id="sourceIP" placeholder="例如：192.168.1.10">
+    </div>
 
+    <div class="form-group">
+        <label>目的 IP</label>
+        <input type="text" id="destIP" placeholder="例如：8.8.8.8">
+    </div>
+
+    <div class="form-group">
+        <label>Port</label>
+        <input type="number" id="port" placeholder="例如：443">
+    </div>
+
+    <div class="form-group">
+        <label>Protocol</label>
+        <select id="protocol">
+            <option value="TCP">TCP</option>
+            <option value="UDP">UDP</option>
+            <option value="ICMP">ICMP</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>動作</label>
+        <select id="action">
+            <option value="ALLOW">ALLOW</option>
+            <option value="DENY">DENY</option>
+        </select>
+    </div>
+
+    <button onclick="addRule()">新增規則</button>
+
+    <h3>目前防火牆規則</h3>
+
+    <div style="overflow-x:auto;">
+        <table id="ruleTable">
+            <thead>
+                <tr>
+                    <th>名稱</th>
+                    <th>來源 IP</th>
+                    <th>目的 IP</th>
+                    <th>Port</th>
+                    <th>Protocol</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="ruleList">
+            </tbody>
+        </table>
+    </div>
+    </section>
     </main>
 
-</div>
+    </div>
 
 </body>
 </html>
