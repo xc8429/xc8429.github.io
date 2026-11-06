@@ -401,5 +401,80 @@ https://xc8429.github.io/firewall.html
 **完成後告訴我結果。**
 
 下一階段我們會加入真正有意思的功能：輸入一組網路封包資料，讓系統依照防火牆規則自動判斷 ALLOW 或 DENY。
+<script>
+let firewallRules = [];
+
+function addRule() {
+
+    const name = document.getElementById("ruleName").value.trim();
+    const source = document.getElementById("sourceIP").value.trim();
+    const destination = document.getElementById("destIP").value.trim();
+    const port = document.getElementById("port").value;
+    const protocol = document.getElementById("protocol").value;
+    const action = document.getElementById("action").value;
+
+    if (!name || !source || !destination || !port) {
+        alert("請完整填寫所有欄位！");
+        return;
+    }
+
+    if (!Number.isInteger(Number(port)) ||
+        Number(port) < 1 ||
+        Number(port) > 65535) {
+        alert("Port 必須介於 1 到 65535！");
+        return;
+    }
+
+    const rule = {
+        name,
+        source,
+        destination,
+        port,
+        protocol,
+        action
+    };
+
+    firewallRules.push(rule);
+
+    renderRules();
+
+    document.getElementById("ruleName").value = "";
+    document.getElementById("sourceIP").value = "";
+    document.getElementById("destIP").value = "";
+    document.getElementById("port").value = "";
+
+    alert("防火牆規則新增成功！");
+}
+
+function renderRules() {
+
+    const ruleList = document.getElementById("ruleList");
+
+    ruleList.innerHTML = "";
+
+    firewallRules.forEach(rule => {
+
+        const row = document.createElement("tr");
+
+        [
+            rule.name,
+            rule.source,
+            rule.destination,
+            rule.port,
+            rule.protocol,
+            rule.action
+        ].forEach(value => {
+
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+
+        });
+
+        ruleList.appendChild(row);
+
+    });
+}
+</script>
 </body>
 </html>
