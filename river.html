@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michael 的資訊站 - 網路流量與訪客監控系統</title>
+  <!-- 引入 Chart.js 圖表庫 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- 引入 FontAwesome 圖示 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --border-color: #334155;
+      --accent-blue: #38bdf8;
+      --accent-green: #34d399;
+      --accent-yellow: #fbbf24;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .dashboard {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* 頁首 Header */
+    .header {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 20px 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .title-area h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title-area small {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent-green);
+      border: 1px solid var(--accent-green);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn:hover { background: #1d4ed8; }
+    .btn-secondary { background: #334155; }
+    .btn-secondary:hover { background: #475569; }
+
+    /* 數據卡片 Cards */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card-title {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .card-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    /* 兩欄區塊 Layout */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .content-grid { grid-template-columns: 1fr; }
+    }
+
+    /* 訪客 IP 表格 */
+    .table-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .search-box {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      color: var(--text-muted);
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+    }
+
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .badge-in { color: var(--accent-green); background: rgba(52, 211, 153, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; }
+    .badge-out { color: var(--accent-blue); background: rgba(56, 189, 248, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; }
+
+  </style>
+</head>
+<body>
+
+<div class="dashboard">
+  <!-- 頁首 -->
+  <div class="header">
+    <div class="title-area">
+      <h1><i class="fa-solid fa-server" style="color: var(--accent-blue);"></i> Michael 的資訊站</h1>
+      <small>網路流量與訪客進出即時監控系統</small>
+    </div>
+    <div class="header-controls">
+      <div class="status-badge">
+        <span class="status-dot"></span> 監控中
+      </div>
+      <span style="font-size: 0.85rem; color: var(--text-muted);">
+        刷新倒數：<strong id="countdown" style="color: var(--accent-yellow);">300</strong> 秒
+      </span>
+      <button class="btn btn-secondary" onclick="updateDashboard()"><i class="fa-solid fa-rotate"></i> 立即更新</button>
+      <!-- 導向回主資訊站的連結 (可修改 href) -->
+      <a href="https://michael-info.example.com" target="_blank" class="btn">
+        <i class="fa-solid fa-house"></i> 前往資訊站
+      </a>
+    </div>
+  </div>
+
+  <!-- 關鍵數據卡片 -->
+  <div class="metrics-grid">
+    <div class="card">
+      <div class="card-title">下載頻寬 (Download) <i class="fa-solid fa-arrow-down" style="color: var(--accent-blue);"></i></div>
+      <div class="card-value" style="color: var(--accent-blue);" id="download-rate">-- Mbps</div>
+    </div>
+    <div class="card">
+      <div class="card-title">上傳頻寬 (Upload) <i class="fa-solid fa-arrow-up" style="color: var(--accent-green);"></i></div>
+      <div class="card-value" style="color: var(--accent-green);" id="upload-rate">-- Mbps</div>
+    </div>
+    <div class="card">
+      <div class="card-title">今日獨立 IP 訪客 <i class="fa-solid fa-users" style="color: var(--accent-yellow);"></i></div>
+      <div class="card-value" style="color: var(--accent-yellow);" id="unique-ips">--</div>
+    </div>
+    <div class="card">
+      <div class="card-title">當前活躍連線 <i class="fa-solid fa-network-wired"></i></div>
+      <div class="card-value" id="active-connections">--</div>
+    </div>
+  </div>
+
+  <!-- 主內容圖表與 IP 日誌表格 -->
+  <div class="content-grid">
+    <!-- 流量圖表 -->
+    <div class="card">
+      <div class="card-title">5 分鐘歷史流量趨勢圖</div>
+      <canvas id="trafficChart" height="150"></canvas>
+    </div>
+
+    <!-- 訪客 IP 紀錄表格 -->
+    <div class="table-container">
+      <div class="table-header">
+        <h3 style="font-size: 1rem;">近期訪客 IP 紀錄</h3>
+        <input type="text" class="search-box" id="ipSearch" placeholder="搜尋 IP..." onkeyup="filterIPs()">
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>時間</th>
+            <th>訪客 IP</th>
+            <th>請求路徑</th>
+            <th>方向</th>
+          </tr>
+        </thead>
+        <tbody id="ip-table-body">
+          <!-- 動態由 JavaScript 產生 -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  let countdown = 300; // 5 分鐘計時器
+  let initialTime = new Date();
+
+  // 初始化時間軸標籤 (預設每 5 分鐘一個點)
+  let labels = [];
+  for (let i = 4; i >= 0; i--) {
+    let t = new Date(initialTime.getTime() - i * 5 * 60 * 1000);
+    labels.push(`${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}`);
+  }
+
+  let downloadData = [35.2, 42.8, 58.0, 49.5, 62.1];
+  let uploadData = [12.1, 15.4, 22.0, 18.3, 25.6];
+
+  // 初始化 Chart.js 趨勢圖
+  const ctx = document.getElementById('trafficChart').getContext('2d');
+  const trafficChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: '下載 (Mbps)', data: downloadData, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.1)', fill: true, tension: 0.3 },
+        { label: '上傳 (Mbps)', data: uploadData, borderColor: '#34d399', backgroundColor: 'rgba(52, 211, 153, 0.1)', fill: true, tension: 0.3 }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+      },
+      plugins: { legend: { labels: { color: '#f8fafc' } } }
+    }
+  });
+
+  // 模擬 IP 日誌資料庫
+  const mockIPs = ['220.136.12.88', '114.32.189.45', '61.228.102.14', '140.112.28.91', '101.9.132.77'];
+  const mockPaths = ['/', '/blog/article-1', '/api/v1/status', '/about', '/assets/css/main.css'];
+
+  // 更新儀表板數據與生成新紀錄
+  function updateDashboard() {
+    const now = new Date();
+    const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+    const chartTimeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+    // 隨機數值產生
+    const newDownload = (Math.random() * 50 + 30).toFixed(1);
+    const newUpload = (Math.random() * 25 + 10).toFixed(1);
+    const newUniqueIPs = Math.floor(Math.random() * 20 + 140);
+    const newConnections = Math.floor(Math.random() * 15 + 8);
+
+    // 更新 DOM 數據
+    document.getElementById('download-rate').innerText = `${newDownload} Mbps`;
+    document.getElementById('upload-rate').innerText = `${newUpload} Mbps`;
+    document.getElementById('unique-ips').innerText = newUniqueIPs;
+    document.getElementById('active-connections').innerText = newConnections;
+
+    // 更新圖表
+    trafficChart.data.labels.shift();
+    trafficChart.data.labels.push(chartTimeStr);
+    trafficChart.data.datasets[0].data.shift();
+    trafficChart.data.datasets[0].data.push(newDownload);
+    trafficChart.data.datasets[1].data.shift();
+    trafficChart.data.datasets[1].data.push(newUpload);
+    trafficChart.update();
+
+    // 新增 IP 紀錄行
+    const randomIP = mockIPs[Math.floor(Math.random() * mockIPs.length)];
+    const randomPath = mockPaths[Math.floor(Math.random() * mockPaths.length)];
+    const isIncoming = Math.random() > 0.3;
+
+    const tbody = document.getElementById('ip-table-body');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td>${timeStr}</td>
+      <td style="font-family: monospace; color: var(--accent-blue);">${randomIP}</td>
+      <td>${randomPath}</td>
+      <td><span class="${isIncoming ? 'badge-in' : 'badge-out'}">${isIncoming ? 'IN' : 'OUT'}</span></td>
+    `;
+    
+    tbody.insertBefore(newRow, tbody.firstChild);
+
+    // 保持表格最多 6 行
+    if (tbody.children.length > 6) {
+      tbody.removeChild(tbody.lastChild);
+    }
+
+    // 重設倒數計時器
+    countdown = 300;
+  }
+
+  // 搜尋過濾 IP
+  function filterIPs() {
+    const filter = document.getElementById('ipSearch').value.toLowerCase();
+    const rows = document.querySelectorAll('#ip-table-body tr');
+    rows.forEach(row => {
+      const ipText = row.children[1].textContent.toLowerCase();
+      row.style.display = ipText.includes(filter) ? '' : 'none';
+    });
+  }
+
+  // 每秒倒數計時器
+  setInterval(() => {
+    countdown--;
+    document.getElementById('countdown').innerText = countdown;
+
+    if (countdown <= 0) {
+      updateDashboard();
+    }
+  }, 1000);
+
+  // 初始化載入
+  updateDashboard();
+</script>
+
+</body>
+</html>
