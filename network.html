@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>企業網路拓樸｜Michael 的資訊站</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 20px;
+    background: #111820;
+    color: #e8f4ff;
+    font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+}
+
+.container {
+    max-width: 1250px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #00d9ff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px #00bfff66;
+}
+
+header p {
+    color: #91a9bd;
+}
+
+.home-button {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 9px 22px;
+    color: #00e5ff;
+    border: 1px solid #00bfff;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.home-button:hover {
+    background: #00bfff;
+    color: #101820;
+    box-shadow: 0 0 15px #00bfff88;
+}
+
+.section-title {
+    color: #00d9ff;
+    text-align: center;
+    margin: 30px 0 18px;
+    font-size: 20px;
+}
+
+.topology {
+    background: #17232e;
+    border: 1px solid #294355;
+    border-radius: 14px;
+    padding: 25px 15px;
+    box-shadow: 0 0 25px #00bfff12;
+}
+
+.node {
+    width: 220px;
+    margin: auto;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #00bfff;
+    border-radius: 10px;
+    background: #1b2c3a;
+    box-shadow: 0 0 12px #00bfff22;
+}
+
+.node .icon {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.node h3 {
+    margin: 5px 0;
+    color: #00d9ff;
+    font-size: 17px;
+}
+
+.node p {
+    margin: 5px 0;
+    color: #b2c6d6;
+    font-size: 13px;
+}
+
+.firewall {
+    border-color: #ffad42;
+}
+
+.firewall h3 {
+    color: #ffbd59;
+}
+
+.core {
+    width: 270px;
+    border-color: #00ffc3;
+    box-shadow: 0 0 18px #00ffc322;
+}
+
+.core h3 {
+    color: #00ffc3;
+}
+
+.line {
+    width: 2px;
+    height: 35px;
+    margin: auto;
+    background: linear-gradient(#00bfff, #00ffc3);
+    position: relative;
+}
+
+.line-label {
+    text-align: center;
+    color: #8ca8bd;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.branches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 0;
+}
+
+.branch {
+    min-width: 0;
+    border: 1px solid #345064;
+    border-radius: 10px;
+    padding: 14px 10px;
+    background: #1a2935;
+    text-align: center;
+}
+
+.branch-line {
+    height: 30px;
+    width: 2px;
+    margin: -14px auto 12px;
+    background: #00bfff;
+}
+
+.branch h3 {
+    color: #00d9ff;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.vlan {
+    font-size: 12px;
+    color: #00ffc3;
+    margin: 6px 0;
+}
+
+.subnet {
+    font-size: 12px;
+    color: #a9bdce;
+    line-height: 1.7;
+}
+
+.switch {
+    border: 1px solid #00bfff;
+    border-radius: 7px;
+    padding: 10px 5px;
+    background: #203747;
+    margin: 12px 0;
+}
+
+.switch strong {
+    display: block;
+    color: #00d9ff;
+    font-size: 13px;
+}
+
+.switch span {
+    color: #9eb4c6;
+    font-size: 11px;
+}
+
+.device {
+    border: 1px solid #526a7b;
+    background: #253542;
+    border-radius: 6px;
+    padding: 9px 5px;
+    margin-top: 9px;
+    font-size: 12px;
+    color: #d6e6f2;
+}
+
+.device.nas {
+    border-color: #00ffc3;
+    color: #00ffc3;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.panel {
+    background: #17232e;
+    border: 1px solid #294355;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.panel h3 {
+    color: #00d9ff;
+    margin-top: 0;
+}
+
+.panel p, .panel li {
+    color: #c1d1dd;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.panel ul {
+    padding-left: 20px;
+}
+
+.allow {
+    color: #00ffc3;
+}
+
+.deny {
+    color: #ff7777;
+}
+
+.note {
+    color: #8ca8bd;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #6e879b;
+    font-size: 12px;
+}
+
+@media (max-width: 850px) {
+    .branches {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 25px;
+    }
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        padding: 18px 10px;
+    }
+
+    .branches {
+        grid-template-columns: 1fr;
+    }
+
+    .node {
+        width: 90%;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+    <h1>企業網路拓樸架構</h1>
+    <p>Enterprise Network Topology｜50 人企業網路規劃</p>
+    <a href="index.html" class="home-button">← 返回首頁</a>
+</header>
+
+<h2 class="section-title">NETWORK ARCHITECTURE</h2>
+
+<section class="topology">
+
+    <!-- Internet -->
+    <div class="node">
+        <div class="icon">🌐</div>
+        <h3>ISP / INTERNET</h3>
+        <p>外部網際網路</p>
+    </div>
+
+    <div class="line"></div>
+    <div class="line-label">WAN Connection</div>
+
+    <!-- Firewall -->
+    <div class="node firewall">
+        <div class="icon">🛡️</div>
+        <h3>Firewall</h3>
+        <p>NAT / WAN Security Policy</p>
+        <p>外部連線與安全防護</p>
+    </div>
+
+    <div class="line"></div>
+    <div class="line-label">Routed Link｜三層路由連線</div>
+
+    <!-- Core Switch -->
+    <div class="node core">
+        <div class="icon">🔀</div>
+        <h3>Core Layer 3 Switch</h3>
+        <p>VLAN / SVI / Inter-VLAN Routing</p>
+        <p>ACL / Default Route</p>
+    </div>
+
+    <h2 class="section-title">ACCESS NETWORK｜部門網路</h2>
+
+    <div class="branches">
+
+        <!-- Customer -->
+        <div class="branch">
+            <div class="branch-line"></div>
+            <h3>客服部門</h3>
+            <div class="vlan">VLAN 10｜CUSTOMER</div>
+            <div class="subnet">
+                Network: 192.168.10.0/24<br>
+                Gateway: 192.168.10.1
+            </div>
+
+            <div class="switch">
+                <strong>Layer 2 Switch</strong>
+                <span>客服專用交換器</span>
+            </div>
+
+            <div class="device">💻 電腦終端 × 20</div>
+        </div>
+
+        <!-- Sales -->
+        <div class="branch">
+            <div class="branch-line"></div>
+            <h3>業務部門</h3>
+            <div class="vlan">VLAN 20｜SALES</div>
+            <div class="subnet">
+                Network: 192.168.20.0/24<br>
+                Gateway: 192.168.20.1
+            </div>
+
+            <div class="switch">
+                <strong>Layer 2 Switch</strong>
+                <span>業務專用交換器</span>
+            </div>
+
+            <div class="device">💻 電腦終端 × 20</div>
+        </div>
+
+        <!-- IT -->
+        <div class="branch">
+            <div class="branch-line"></div>
+            <h3>資訊部門</h3>
+            <div class="vlan">VLAN 30｜IT</div>
+            <div class="subnet">
+                Network: 192.168.30.0/24<br>
+                Gateway: 192.168.30.1
+            </div>
+
+            <div class="switch">
+                <strong>Layer 2 Switch</strong>
+                <span>資訊專用交換器</span>
+            </div>
+
+            <div class="device">💻 電腦終端 × 10</div>
+        </div>
+
+        <!-- Server -->
+        <div class="branch">
+            <div class="branch-line"></div>
+            <h3>伺服器區</h3>
+            <div class="vlan">VLAN 40｜SERVER</div>
+            <div class="subnet">
+                Network: 192.168.40.0/24<br>
+                Gateway: 192.168.40.1
+            </div>
+
+            <div class="switch">
+                <strong>Layer 2 Switch</strong>
+                <span>Server 專用交換器</span>
+            </div>
+
+            <div class="device">🖥️ AD / DNS / File Server</div>
+            <div class="device nas">🗄️ NAS｜192.168.40.20</div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Network Policy -->
+<h2 class="section-title">NETWORK SECURITY POLICY</h2>
+
+<div class="info">
+
+    <div class="panel">
+        <h3>部門網路隔離</h3>
+        <ul>
+            <li><span class="deny">禁止</span> 客服與業務直接互通</li>
+            <li><span class="deny">禁止</span> 客服與資訊直接互通</li>
+            <li><span class="deny">禁止</span> 業務與資訊直接互通</li>
+            <li><span class="allow">允許</span> 各部門依權限存取指定服務</li>
+        </ul>
+    </div>
+
+    <div class="panel">
+        <h3>NAS 存取政策</h3>
+        <ul>
+            <li><span class="allow">允許</span> 客服連線 NAS</li>
+            <li><span class="allow">允許</span> 業務連線 NAS</li>
+            <li><span class="allow">允許</span> 資訊連線 NAS</li>
+            <li>通訊協定：SMB / TCP 445</li>
+            <li>NAS 位址：192.168.40.20</li>
+        </ul>
+        <p class="note">
+            NAS 內部另以帳號、群組及共享資料夾 ACL
+            控制各部門的檔案存取權限。
+        </p>
+    </div>
+
+    <div class="panel">
+        <h3>Core Layer 3 Switch 工作</h3>
+        <ul>
+            <li>建立 VLAN 10 / 20 / 30 / 40</li>
+            <li>設定各 VLAN 的 SVI Gateway</li>
+            <li>啟用 IP Routing</li>
+            <li>設定 ACL 控制部門間流量</li>
+            <li>設定 Default Route 指向 Firewall</li>
+        </ul>
+    </div>
+
+    <div class="panel">
+        <h3>Firewall 工作</h3>
+        <ul>
+            <li>WAN 外部網路連線</li>
+            <li>NAT 網路位址轉換</li>
+            <li>外部連線安全政策</li>
+            <li>阻擋未授權外部連線</li>
+            <li>回程路由指向內部 Core Switch</li>
+        </ul>
+    </div>
+
+</div>
+
+<h2 class="section-title">IP ADDRESS PLAN</h2>
+
+<div class="panel">
+    <ul>
+        <li>VLAN 10｜客服：192.168.10.0/24</li>
+        <li>VLAN 20｜業務：192.168.20.0/24</li>
+        <li>VLAN 30｜資訊：192.168.30.0/24</li>
+        <li>VLAN 40｜伺服器：192.168.40.0/24</li>
+        <li>NAS：192.168.40.20</li>
+    </ul>
+    <p class="note">
+        本架構為規劃示意。正式部署前仍須確認 DHCP、DNS、
+        AD、管理 VLAN、ACL 雙向規則與伺服器實際服務需求。
+    </p>
+</div>
+
+<footer>
+    Michael's IT Portfolio｜Enterprise Network Design
+</footer>
+
+</div>
+</body>
+</html>
