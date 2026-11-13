@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 1. 網頁標題設為 post.html -->
+    <title>post.html</title>
+    <!-- 引入 Tailwind CSS 以實現響應式與現代深色科技風格 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts: Noto Sans TC 與 Inter, JetBrains Mono 提升閱讀與技術感 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col justify-between antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+
+    <!-- 頂部極簡技術導覽列 -->
+    <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-10">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+                <span class="font-mono text-sm font-semibold tracking-wider text-slate-300">SYSOPS // INCIDENT LOG</span>
+            </div>
+            <div class="flex items-center space-x-2 text-xs font-mono text-slate-400">
+                <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-cyan-400">post.html</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要文章容器 -->
+    <main class="flex-grow max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        
+        <!-- 文章卡片主體 -->
+        <article class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl shadow-black/60">
+            
+            <!-- 2. 上方顯示工程師在機房處理伺服器故障的高畫質科技感圖片（附帶精緻機房工程師 SVG 備援確保永不破圖） -->
+            <div class="relative w-full aspect-video bg-slate-950 overflow-hidden group">
+                <!-- 高畫質機房工程師維護攝影圖 (Unsplash) -->
+                <img 
+                    id="server-hero-img"
+                    src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=85" 
+                    alt="工程師在資料中心機房排查伺服器機櫃故障"
+                    class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-90"
+                    onerror="this.style.display='none'; document.getElementById('fallback-svg-illustration').classList.remove('hidden');"
+                />
+
+                <!-- 若外部網路離線或圖片載入失敗時，自動無縫顯示精緻科技感機房工程師 SVG 插畫 -->
+                <div id="fallback-svg-illustration" class="hidden w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950">
+                    <svg viewBox="0 0 800 450" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="bgGlow" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#0f172a"/>
+                                <stop offset="100%" stop-color="#020617"/>
+                            </linearGradient>
+                            <linearGradient id="screenGlow" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.35"/>
+                                <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.05"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="800" height="450" fill="url(#bgGlow)"/>
+                        <!-- 背景網格線 -->
+                        <g stroke="#1e293b" stroke-width="1">
+                            <line x1="0" y1="90" x2="800" y2="90"/><line x1="0" y1="180" x2="800" y2="180"/>
+                            <line x1="0" y1="270" x2="800" y2="270"/><line x1="0" y1="360" x2="800" y2="360"/>
+                            <line x1="160" y1="0" x2="160" y2="450"/><line x1="320" y1="0" x2="320" y2="450"/>
+                            <line x1="480" y1="0" x2="480" y2="450"/><line x1="640" y1="0" x2="640" y2="450"/>
+                        </g>
+                        <!-- 伺服器機櫃 1 -->
+                        <rect x="90" y="60" width="160" height="330" rx="8" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                        <rect x="108" y="82" width="124" height="36" rx="4" fill="#1e293b"/>
+                        <circle cx="122" cy="100" r="4" fill="#22c55e"/><circle cx="136" cy="100" r="4" fill="#22c55e"/>
+                        <rect x="108" y="130" width="124" height="36" rx="4" fill="#1e293b"/>
+                        <circle cx="122" cy="148" r="4" fill="#f43f5e"/><circle cx="136" cy="148" r="4" fill="#f43f5e"/>
+                        <rect x="155" y="144" width="60" height="8" rx="2" fill="#f43f5e" opacity="0.7"/>
+                        <rect x="108" y="178" width="124" height="36" rx="4" fill="#1e293b"/>
+                        <circle cx="122" cy="196" r="4" fill="#22c55e"/><circle cx="136" cy="196" r="4" fill="#06b6d4"/>
+                        <rect x="108" y="226" width="124" height="36" rx="4" fill="#1e293b"/>
+                        <circle cx="122" cy="244" r="4" fill="#f59e0b"/><circle cx="136" cy="244" r="4" fill="#22c55e"/>
+                        <!-- 伺服器機櫃 2 -->
+                        <rect x="550" y="60" width="160" height="330" rx="8" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                        <rect x="568" y="82" width="124" height="36" rx="4" fill="#1e293b"/>
+                        <circle cx="582" cy="100" r="4" fill="#06b6d4"/><circle cx="596" cy="100" r="4" fill="#22c55e"/>
+                        <rect x="568" y="130" width="124" height="36" rx="4" fill="#1e293b"/>
+                        <circle cx="582" cy="148" r="4" fill="#22c55e"/><circle cx="596" cy="148" r="4" fill="#22c55e"/>
+                        <!-- 工程師輪廓與筆電終端機 -->
+                        <circle cx="400" cy="185" r="34" fill="#334155" stroke="#38bdf8" stroke-width="2"/>
+                        <path d="M335 320 C335 260, 465 260, 465 320 L475 390 L325 390 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                        <!-- 筆電與控制台光暈 -->
+                        <polygon points="340,295 460,295 480,350 320,350" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/>
+                        <rect x="355" y="210" width="90" height="60" rx="6" fill="url(#screenGlow)" stroke="#22d3ee" stroke-width="1.5"/>
+                        <text x="400" y="238" fill="#38bdf8" font-family="monospace" font-size="11" text-anchor="middle">ERR_DB_CORRUPT</text>
+                        <text x="400" y="255" fill="#f43f5e" font-family="monospace" font-size="10" text-anchor="middle">RESTORE BACKUP</text>
+                    </svg>
+                </div>
+
+                <!-- 科技感漸層遮罩與機房狀態標籤 -->
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent pointer-events-none"></div>
+                <div class="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 flex flex-wrap items-center justify-between gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-rose-500/20 text-rose-300 border border-rose-500/40 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                        CRITICAL ALERT // DATA CORRUPTION
+                    </span>
+                    <span class="text-xs font-mono text-slate-300 bg-slate-950/75 px-2.5 py-1 rounded-md border border-slate-800 backdrop-blur-md">
+                        IDC-RACK-04 • 緊急故障排查中
+                    </span>
+                </div>
+            </div>
+
+            <!-- 3. 圖片下方呈現結構清晰的文章內容區塊 -->
+            <div class="p-6 sm:p-10">
+                <!-- 文章分類與時間元資訊 -->
+                <div class="flex items-center gap-3 text-xs font-mono text-cyan-400 mb-3">
+                    <span>#維運實錄</span>
+                    <span class="text-slate-600">/</span>
+                    <span>#災難復原</span>
+                    <span class="text-slate-600">/</span>
+                    <span class="text-slate-400">INCIDENT REPORT</span>
+                </div>
+
+                <!-- 文章主標題 -->
+                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-6 pb-5 border-b border-slate-800">
+                    案例1.伺服器異常
+                </h1>
+
+                <!-- 文章核心內文（精準呈現指定兩行內容） -->
+                <div class="space-y-4 text-base sm:text-lg leading-relaxed text-slate-200 bg-slate-950/60 border border-slate-800/90 rounded-xl p-5 sm:p-6">
+                    <p class="flex items-start gap-3">
+                        <span class="mt-1.5 w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+                        <span>操作造成資料異常</span>
+                    </p>
+                    <p class="flex items-start gap-3">
+                        <span class="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+                        <span>用了所有方法都搞不定，只好使用前一天備份資料還原</span>
+                    </p>
+                </div>
+
+                <!-- 技術維運摘要狀態欄（視覺點綴，增強專業技術部落格質感） -->
+                <div class="mt-8 pt-6 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">異常主因</div>
+                        <div class="text-amber-300 font-medium">人為操作導致資料損毀</div>
+                    </div>
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">處置手段</div>
+                        <div class="text-cyan-300 font-medium">前一日完整備份還原</div>
+                    </div>
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">系統狀態</div>
+                        <div class="text-emerald-400 font-medium">● 已恢復正常服務</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="border-t border-slate-900 py-6 text-center text-xs font-mono text-slate-500">
+        <p>post.html &bull; Server Incident &amp; Recovery Documentation</p>
+    </footer>
+
+</body>
+</html>
