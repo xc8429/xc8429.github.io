@@ -155,17 +155,17 @@
         steps: [
           {
             name: "檢查 IP 位址",
-            detail: "輸入CMD開啟命令提示字元，確認電腦是否取得有效 IP。",
+            detail: "從搜尋輸入CMD開啟命令提示字元，確認電腦是否取得有效 IP。",
             command: "ipconfig"
           },
           {
             name: "測試預設閘道",
-            detail: "先從 ipconfig 找到「預設閘道」，再將下方範例替換成實際 IP。",
+            detail: "從搜尋輸入CMD先從 ipconfig 找到「預設閘道」，再將下方範例替換成實際 IP。",
             command: "ping 192.168.47.254"
           },
           {
             name: "測試外部網路",
-            detail: "測試能否連到外部 IP。部分網路會封鎖 ICMP，因此失敗不一定代表斷網。",
+            detail: "從命令提示字元測試能否連到外部 IP。部分網路會封鎖 ICMP，因此失敗不一定代表斷網。",
             command: "ping 1.1.1.1"
           }
         ]
