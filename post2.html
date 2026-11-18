@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD 網域與 NAS 權限管理實務 | IT 技術實戰紀錄</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --border-color: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .lead {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .arch-diagram {
+            background-color: #0b1120;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 1rem 0;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0f172a;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(15, 23, 42, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-rw {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .badge-ro {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-na {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .callout {
+            background-color: rgba(56, 189, 248, 0.08);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .callout strong {
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 640px) {
+            header, section {
+                padding: 1.25rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            th, td {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; 返回作品集首頁</a>
+
+        <header>
+            <div class="tag-group">
+                <span class="tag">Windows Server AD</span>
+                <span class="tag">Synology NAS</span>
+                <span class="tag">ISO 資訊安全</span>
+                <span class="tag">最小權限原則</span>
+            </div>
+            <h1>AD 網域與 NAS 權限管理：整合存取控制與 ISO 資安合規實務</h1>
+            <p class="lead">
+                將 Synology NAS 納入 Windows Active Directory 網域架構，透過集中式帳號與群組管理，落實符合機關 ISO 資訊安全規範的最小權限原則（Principle of Least Privilege）。
+            </p>
+        </header>
+
+        <section>
+            <h2>一、 專案背景與核心目標</h2>
+            <p>
+                在多部門協作的機關與企業環境中，若檔案伺服器（NAS）與網域帳號各自獨立管理，容易產生離職帳號未及時停用、跨部門資料誤存取以及權限盤點困難等資安風險。
+            </p>
+            <ul>
+                <li><strong>集中式身分驗證：</strong>將 Synology NAS 加入既有 Windows AD 網域，直接同步與讀取網域使用者（Domain Users）及安全性群組（Security Groups）。</li>
+                <li><strong>ISO 資訊安全合規：</strong>依據組織資訊安全管理制度（ISMS）要求，建立清晰的權限分級與稽核軌跡。</li>
+                <li><strong>落實最小權限原則：</strong>使用者僅能存取執行業務所必需的共用資料夾與子目錄，阻絕非授權的橫向瀏覽與修改。</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>二、 系統整合與網域設定架構</h2>
+            <div class="arch-diagram">
+[ Windows Server AD Domain Controller ]
+       │  (LDAP / Kerberos 驗證與群組同步)
+       ▼
+[ Synology NAS (DSM 網域整合) ]
+       │
+       ├── 讀取網域組織單位 (OU) 與安全性群組
+       ├── 啟用 Windows ACL 進階權限控管
+       └── 套用部門共用資料夾存取清單 (SMB/CIFS)
+            </div>
+            <h3>關鍵實作步驟</h3>
+            <ol>
+                <li><strong>DNS 與時間同步校準：</strong>將 NAS 的首選 DNS 指向 AD 網域控制站，並設定與 DC 同步的 NTP 時間伺服器，確保 Kerberos 驗證票證正常運作。</li>
+                <li><strong>加入 Active Directory 網域：</strong>於 DSM「控制台 &gt; 網域/LDAP」輸入網域名稱與網域管理員憑證，完成網域加入並驗證網域使用者與群組清單同步狀態。</li>
+                <li><strong>停用本機非必要預設帳號：</strong>停用 NAS 預設 <code>admin</code> 帳號並改用獨立管理帳號，降低暴力破解風險。</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>三、 權限規劃矩陣與最小權限實作</h2>
+            <p>
+                採用 <strong>AGDLP（Account &rarr; Global Group &rarr; Domain Local Group &rarr; Permission）</strong> 概念設計權限結構，直接以「網域安全性群組」作為 NAS 共用資料夾與子資料夾 ACL 的授權對象，避免針對單一使用者零散設定權限。
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>共用資料夾名稱</th>
+                        <th>管理部群組</th>
+                        <th>業務/專案部群組</th>
+                        <th>財務/人事群組</th>
+                        <th>一般全體同仁</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>01_全機關公告與表單</strong></td>
+                        <td><span class="badge badge-rw">讀取 / 寫入</span></td>
+                        <td><span class="badge badge-ro">唯讀</span></td>
+                        <td><span class="badge badge-ro">唯讀</span></td>
+                        <td><span class="badge badge-ro">唯讀</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>02_管理部行政專區</strong></td>
+                        <td><span class="badge badge-rw">讀取 / 寫入</span></td>
+                        <td><span class="badge badge-na">禁止存取</span></td>
+                        <td><span class="badge badge-na">禁止存取</span></td>
+                        <td><span class="badge badge-na">禁止存取</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>03_業務執行與專案檔</strong></td>
+                        <td><span class="badge badge-ro">唯讀 (稽核)</span></td>
+                        <td><span class="badge badge-rw">讀取 / 寫入</span></td>
+                        <td><span class="badge badge-na">禁止存取</span></td>
+                        <td><span class="badge badge-na">禁止存取</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>04_財務與人事機密區</strong></td>
+                        <td><span class="badge badge-na">禁止存取</span></td>
+                        <td><span class="badge badge-na">禁止存取</span></td>
+                        <td><span class="badge badge-rw">讀取 / 寫入</span></td>
+                        <td><span class="badge badge-na">禁止存取</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout">
+                <strong>資安強化細節：</strong>啟用 SMB「對沒有權限的使用者隱藏共用資料夾（ABE, Access-Based Enumeration）」功能，並關閉高敏感資料夾的「一般使用者刪除檔案」權限（僅允許新增與修改，或由主管群組控管刪除），有效防範誤刪或勒索軟體擴散。
+            </div>
+        </section>
+
+        <section>
+            <h2>四、 ISO 資安稽核配合與維運成效</h2>
+            <ul>
+                <li><strong>人員異動即時連動：</strong>人員調動或離職時，僅需於 AD 端調整群組或停用帳號，NAS 存取權限即刻同步生效，消除權限殘留漏洞。</li>
+                <li><strong>完整存取日誌留存：</strong>啟用 Synology 日誌中心（Log Center）記錄 SMB 檔案讀取、寫入、刪除與權限變更軌跡，滿足 ISO 稽核對異常存取追蹤與定期權限清查（Access Review）的要求。</li>
+                <li><strong>權限盤點效率提升：</strong>透過群組化權限架構，定期向各部門主管產出權限清單進行覆核，大幅降低人工比對錯誤率。</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>IT 系統管理與網路工程實務紀錄 &bull; AD 網域與 NAS 資安整合案例</p>
+        </footer>
+    </div>
+</body>
+</html>
