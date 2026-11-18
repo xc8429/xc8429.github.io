@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>post3.html</title>
+    <!-- 引入 Tailwind CSS 以實現響應式與現代深色科技風格 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts: Noto Sans TC 與 Inter, JetBrains Mono 提升閱讀與技術感 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col justify-between antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+
+    <!-- 頂部極簡技術導覽列 -->
+    <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-10">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <a href="index.html" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 bg-slate-800/70 hover:bg-cyan-500/15 hover:text-cyan-300 border border-slate-700/80 hover:border-cyan-500/50 transition-all duration-200 shadow-sm hover:shadow-cyan-500/10">
+                    <svg class="w-4 h-4 text-cyan-400 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span>回到首頁</span>
+                </a>
+                <a href="post2.html" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 bg-slate-800/70 hover:bg-cyan-500/15 hover:text-cyan-300 border border-slate-700/80 hover:border-cyan-500/50 transition-all duration-200 shadow-sm hover:shadow-cyan-500/10">
+                    <svg class="w-4 h-4 text-cyan-400 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span>案例2</span>
+                </a>
+            </div>
+            <div class="flex items-center space-x-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+                <span class="font-mono text-xs sm:text-sm font-semibold tracking-wider text-slate-300">NETWORK // TROUBLESHOOTING</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要文章容器 -->
+    <main class="flex-grow max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        
+        <!-- 文章卡片主體 -->
+        <article class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl shadow-black/60">
+            
+            <!-- 上方顯示網路交換器與光纖跳線的高畫質科技感圖片（附帶 SVG 備援） -->
+            <div class="relative w-full aspect-video bg-slate-950 overflow-hidden group">
+                <img 
+                    src="https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&w=1400&q=85" 
+                    alt="網路交換器與機櫃配線排查"
+                    class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-90"
+                    onerror="this.style.display='none'; document.getElementById('fallback-net-svg').classList.remove('hidden');"
+                />
+
+                <!-- 離線備援科技感網路拓撲 SVG 插畫 -->
+                <div id="fallback-net-svg" class="hidden w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950">
+                    <svg viewBox="0 0 800 450" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="800" height="450" fill="#020617"/>
+                        <g stroke="#1e293b" stroke-width="1">
+                            <line x1="0" y1="90" x2="800" y2="90"/><line x1="0" y1="180" x2="800" y2="180"/>
+                            <line x1="0" y1="270" x2="800" y2="270"/><line x1="0" y1="360" x2="800" y2="360"/>
+                            <line x1="160" y1="0" x2="160" y2="450"/><line x1="320" y1="0" x2="320" y2="450"/>
+                            <line x1="480" y1="0" x2="480" y2="450"/><line x1="640" y1="0" x2="640" y2="450"/>
+                        </g>
+                        <!-- 核心交換器 -->
+                        <rect x="300" y="70" width="200" height="54" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                        <text x="400" y="102" fill="#38bdf8" font-family="monospace" font-size="14" text-anchor="middle">CORE SWITCH / GATEWAY</text>
+                        <!-- 連線 -->
+                        <line x1="350" y1="124" x2="210" y2="240" stroke="#22c55e" stroke-width="2.5"/>
+                        <line x1="450" y1="124" x2="590" y2="240" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="6,4"/>
+                        <!-- 部門 A -->
+                        <rect x="110" y="240" width="200" height="90" rx="8" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+                        <text x="210" y="278" fill="#e2e8f0" font-family="sans-serif" font-size="14" text-anchor="middle">受影響部門 (端點排查)</text>
+                        <text x="210" y="304" fill="#22c55e" font-family="monospace" font-size="12" text-anchor="middle">IP: 192.168.10.50</text>
+                        <!-- 部門 B 衝突來源 -->
+                        <rect x="490" y="240" width="200" height="90" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+                        <text x="590" y="278" fill="#fda4af" font-family="sans-serif" font-size="14" text-anchor="middle">其他部門 (衝突來源)</text>
+                        <text x="590" y="304" fill="#f43f5e" font-family="monospace" font-size="12" text-anchor="middle">IP CONFLICT: .10.50</text>
+                    </svg>
+                </div>
+
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent pointer-events-none"></div>
+                <div class="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 flex flex-wrap items-center justify-between gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-amber-500/20 text-amber-300 border border-amber-500/40 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        IP ADDRESS CONFLICT // LAN OUTAGE
+                    </span>
+                    <span class="text-xs font-mono text-slate-300 bg-slate-950/75 px-2.5 py-1 rounded-md border border-slate-800 backdrop-blur-md">
+                        BOTTOM-UP DIAGNOSIS • 由下而上排查
+                    </span>
+                </div>
+            </div>
+
+            <!-- 內容區塊 -->
+            <div class="p-6 sm:p-10">
+                <div class="flex items-center gap-3 text-xs font-mono text-cyan-400 mb-3">
+                    <span>#網路排查</span>
+                    <span class="text-slate-600">/</span>
+                    <span>#網段管理</span>
+                    <span class="text-slate-600">/</span>
+                    <span class="text-slate-400">NETOPS CASE 03</span>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-6 pb-5 border-b border-slate-800">
+                    案例3. 跨部門網路故障排查
+                </h1>
+
+                <!-- 核心內文 -->
+                <div class="space-y-4 text-base sm:text-lg leading-relaxed text-slate-200 bg-slate-950/60 border border-slate-800/90 rounded-xl p-5 sm:p-6">
+                    <p class="flex items-start gap-3">
+                        <span class="mt-1.5 w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+                        <span>排查部門網路中斷問題：由使用者端逐步向上追查連線狀況，最後發現是其他部門 IP 衝突。</span>
+                    </p>
+                </div>
+
+                <!-- 技術維運摘要狀態欄 -->
+                <div class="mt-8 pt-6 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">排查方法</div>
+                        <div class="text-cyan-300 font-medium">由使用者端向上逐層檢測</div>
+                    </div>
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">異常根因</div>
+                        <div class="text-amber-300 font-medium">跨部門 IP 位址衝突</div>
+                    </div>
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">連線狀態</div>
+                        <div class="text-emerald-400 font-medium">● 排除衝突並恢復連線</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="border-t border-slate-900 py-6 text-center text-xs font-mono text-slate-500">
+        <p>post3.html &bull; Cross-Department Network Troubleshooting</p>
+    </footer>
+
+</body>
+</html>
