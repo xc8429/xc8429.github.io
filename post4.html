@@ -1,0 +1,171 @@
+post4_updated = """<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>post4.html</title>
+    <!-- 引入 Tailwind CSS 以實現響應式與現代深色科技風格 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts: Noto Sans TC 與 Inter, JetBrains Mono 提升閱讀與技術感 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col justify-between antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+
+    <!-- 頂部極簡技術導覽列 -->
+    <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-10">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <a href="index.html" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 bg-slate-800/70 hover:bg-cyan-500/15 hover:text-cyan-300 border border-slate-700/80 hover:border-cyan-500/50 transition-all duration-200 shadow-sm hover:shadow-cyan-500/10">
+                    <svg class="w-4 h-4 text-cyan-400 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span>回到首頁</span>
+                </a>
+                <a href="post.html" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 bg-slate-800/70 hover:bg-cyan-500/15 hover:text-cyan-300 border border-slate-700/80 hover:border-cyan-500/50 transition-all duration-200 shadow-sm hover:shadow-cyan-500/10">
+                    <svg class="w-4 h-4 text-cyan-400 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span>案例1</span>
+                </a>
+                <a href="post2.html" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 bg-slate-800/70 hover:bg-cyan-500/15 hover:text-cyan-300 border border-slate-700/80 hover:border-cyan-500/50 transition-all duration-200 shadow-sm hover:shadow-cyan-500/10">
+                    <svg class="w-4 h-4 text-cyan-400 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span>案例2</span>
+                </a>
+                <a href="post3.html" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 bg-slate-800/70 hover:bg-cyan-500/15 hover:text-cyan-300 border border-slate-700/80 hover:border-cyan-500/50 transition-all duration-200 shadow-sm hover:shadow-cyan-500/10">
+                    <svg class="w-4 h-4 text-cyan-400 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span>案例3</span>
+                </a>
+            </div>
+            <div class="hidden sm:flex items-center space-x-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="font-mono text-xs sm:text-sm font-semibold tracking-wider text-slate-300">HELPDESK // IT SUPPORT</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要文章容器 -->
+    <main class="flex-grow max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        
+        <!-- 文章卡片主體 -->
+        <article class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl shadow-black/60">
+            
+            <!-- 上方顯示電腦硬體檢測與技術支援的高畫質科技感圖片（附帶 SVG 備援） -->
+            <div class="relative w-full aspect-video bg-slate-950 overflow-hidden group">
+                <img 
+                    src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=85" 
+                    alt="資訊設備維護與硬體檢修"
+                    class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-90"
+                    onerror="this.style.display='none'; document.getElementById('fallback-hd-svg').classList.remove('hidden');"
+                />
+
+                <!-- 離線備援科技感設備檢測 SVG 插畫 -->
+                <div id="fallback-hd-svg" class="hidden w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950">
+                    <svg viewBox="0 0 800 450" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="800" height="450" fill="#020617"/>
+                        <g stroke="#1e293b" stroke-width="1">
+                            <line x1="0" y1="90" x2="800" y2="90"/><line x1="0" y1="180" x2="800" y2="180"/>
+                            <line x1="0" y1="270" x2="800" y2="270"/><line x1="0" y1="360" x2="800" y2="360"/>
+                            <line x1="160" y1="0" x2="160" y2="450"/><line x1="320" y1="0" x2="320" y2="450"/>
+                            <line x1="480" y1="0" x2="480" y2="450"/><line x1="640" y1="0" x2="640" y2="450"/>
+                        </g>
+                        <!-- 診斷螢幕框 -->
+                        <rect x="220" y="95" width="360" height="210" rx="12" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
+                        <rect x="240" y="115" width="320" height="32" rx="6" fill="#1e293b"/>
+                        <circle cx="258" cy="131" r="5" fill="#ef4444"/><circle cx="274" cy="131" r="5" fill="#f59e0b"/><circle cx="290" cy="131" r="5" fill="#10b981"/>
+                        <text x="400" y="185" fill="#34d399" font-family="monospace" font-size="16" text-anchor="middle">HELPDESK DIAGNOSTICS</text>
+                        <text x="400" y="218" fill="#94a3b8" font-family="monospace" font-size="13" text-anchor="middle">HARDWARE &amp; OS CHECK: PASS</text>
+                        <rect x="310" y="245" width="180" height="28" rx="6" fill="#10b981" fill-opacity="0.2" stroke="#10b981"/>
+                        <text x="400" y="264" fill="#34d399" font-family="monospace" font-size="12" text-anchor="middle">TICKET RESOLVED</text>
+                        <!-- 底座 -->
+                        <rect x="360" y="305" width="80" height="35" fill="#1e293b"/>
+                        <rect x="310" y="340" width="180" height="10" rx="5" fill="#334155"/>
+                    </svg>
+                </div>
+
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent pointer-events-none"></div>
+                <div class="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 flex flex-wrap items-center justify-between gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        END-USER SUPPORT // DEVICE MAINTENANCE
+                    </span>
+                    <span class="text-xs font-mono text-slate-300 bg-slate-950/75 px-2.5 py-1 rounded-md border border-slate-800 backdrop-blur-md">
+                        ON-SITE &amp; REMOTE HELPDESK
+                    </span>
+                </div>
+            </div>
+
+            <!-- 內容區塊 -->
+            <div class="p-6 sm:p-10">
+                <div class="flex items-center gap-3 text-xs font-mono text-cyan-400 mb-3">
+                    <span>#設備維護</span>
+                    <span class="text-slate-600">/</span>
+                    <span>#技術支援</span>
+                    <span class="text-slate-600">/</span>
+                    <span class="text-slate-400">HELPDESK CASE 04</span>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-6 pb-5 border-b border-slate-800">
+                    案例4. 資訊設備維護與使用者支援
+                </h1>
+
+                <!-- 核心內文 -->
+                <div class="space-y-4 text-base sm:text-lg leading-relaxed text-slate-200 bg-slate-950/60 border border-slate-800/90 rounded-xl p-5 sm:p-6">
+                    <p class="flex items-start gap-3">
+                        <span class="mt-1.5 w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                        <span>資訊設備維護，處理使用者電腦異常與日常 Helpdesk 技術支援，快速排除軟硬體及周邊連線問題，確保各部門同仁日常業務順暢運作。</span>
+                    </p>
+                </div>
+
+                <!-- 技術維運摘要狀態欄 -->
+                <div class="mt-8 pt-6 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">服務範疇</div>
+                        <div class="text-cyan-300 font-medium">電腦硬體與作業系統維護</div>
+                    </div>
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">支援模式</div>
+                        <div class="text-cyan-300 font-medium">Helpdesk 報修與現場排障</div>
+                    </div>
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-lg p-3">
+                        <div class="text-slate-500 mb-1">服務目標</div>
+                        <div class="text-emerald-400 font-medium">● 維持端點設備穩定運作</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="border-t border-slate-900 py-6 text-center text-xs font-mono text-slate-500">
+        <p>post4.html &bull; IT Equipment Maintenance &amp; Helpdesk Support</p>
+    </footer>
+
+</body>
+</html>
+"""
+
+with open("post4.html", "w", encoding="utf-8") as f:
+    f.write(post4_updated)
+
+print("Updated post4.html successfully.")
